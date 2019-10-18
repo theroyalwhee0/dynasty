@@ -1,7 +1,7 @@
 # Dependency Injection - @theroyalwhee0/dynasty
 
 ## Dynasty
-Dynasty is a asynchronous dependency injection library written in javascript.
+Dynasty is an asynchronous dependency injection library written in javascript.
 
 https://www.npmjs.com/package/@theroyalwhee0/dynasty
 
