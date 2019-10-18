@@ -5,6 +5,22 @@
   "main": "src/index.js",
   "author": "Adam Mill <theroyalwhee0@gmail.com>",
   "license": "Apache-2.0",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theroyalwhee0/dynasty.git"
+  },
+  "keywords": [
+    "di",
+    "dependency"
+  ],
+  "bugs": {
+    "url": "https://github.com/theroyalwhee0/dynasty/issues"
+  },
+  "homepage": "https://github.com/theroyalwhee0/dynasty#readme",
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
@@ -22,5 +38,5 @@
     "lint": "eslint src/**/*.js*",
     ".dryrun": "npm publish --dry-run --access=public",
     ".push": "[ \"$CONFIRM\" = \"1\" ] && npm publish --access=public || echo 'Please \"CONFIRM=1 npm run push\" to publish'"
-  }
+  }  
 }
