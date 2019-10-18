@@ -3,6 +3,8 @@
 ## Dynasty
 Dynasty is a asynchronous dependency injection library written in javascript.
 
+https://www.npmjs.com/package/@theroyalwhee0/dynasty
+
 ## Installation
 npm install @theroyalwhee0/dynasty  
 *or*  
