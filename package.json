@@ -1,0 +1,26 @@
+{
+  "name": "@theroyalwhee0/dynasty",
+  "version": "0.0.5",
+  "description": "Dynasty",
+  "main": "src/index.js",
+  "author": "Adam Mill <theroyalwhee0@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "eslint": "6.5.1",
+    "mocha": "6.2.1",
+    "sinon": "7.5.0"
+  },
+  "dependencies": {
+    "dependency-graph": "0.8.0"
+  },
+  "scripts": {
+    "test": "mocha --sort --recursive --check-leaks",
+    "test-watch": "mocha --watch --reporter=dot --sort --recursive --check-leaks",
+    "test-watch-spec": "mocha --watch --reporter=spec --sort --recursive --check-leaks",
+    "lint": "eslint src/**/*.js*",
+    ".dryrun": "npm publish --dry-run --access=public",
+    ".push": "[ \"$CONFIRM\" = \"1\" ] && npm publish --access=public || echo 'Please \"CONFIRM=1 npm run push\" to publish'"
+  }
+}
