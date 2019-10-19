@@ -1,13 +1,13 @@
-# Dependency Injection - @theroyalwhee0/dynasty
+# Dynasty: @theroyalwhee0/dynasty
 
-## Dynasty
+## Description
 Dynasty is an asynchronous dependency injection library written in javascript.
 
-https://www.npmjs.com/package/@theroyalwhee0/dynasty
-
 ## Installation
-npm install @theroyalwhee0/dynasty  
-*or*  
+npm install @theroyalwhee0/dynasty
+
+*or*
+
 yarn add @theroyalwhee0/dynasty
 
 ## Requirements.
@@ -49,7 +49,7 @@ add('name1', once(myFactory), attach('item1', { 'item2': 'alias1' }));
 
 ### Promise\<ParamFn> **call**(Function factory)
 
-Calls a factory function to build the value for this node. The factory is supplied with the dependencies and arguments attached by other param functions. 
+Calls a factory function to build the value for this node. The factory is supplied with the dependencies and arguments attached by other param functions.
 
 ```
 function myFactory(dyn) {
@@ -130,6 +130,13 @@ Uses the specified value as the value of the node. The value is resolved if it i
 ```
 add('name1', value(1234));
 ```
+
+## Links.
+- GitHub: https://github.com/theroyalwhee0/dynasty
+- NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
+
+## History.
+- 0.0.6 Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please)
 
 ## License
 See LICENSE file. Dynasty is released under Apache-2.0 license.
