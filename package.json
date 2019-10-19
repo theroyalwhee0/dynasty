@@ -29,6 +29,7 @@
     "sinon": "7.5.0"
   },
   "dependencies": {
+    "@theroyalwhee0/istype": "0.0.1",
     "@theroyalwhee0/please": "2.0.0",
     "dependency-graph": "0.8.0"
   },

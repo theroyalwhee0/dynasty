@@ -5,7 +5,7 @@
 /**
  * Imports.
  */
-const { isObject, isFunction, canHaveMembers } = require('../utilities/istype');
+const { isFunction, canHaveMembers } = require('@theroyalwhee0/istype');
 
 /**
  * Pull Member factory.

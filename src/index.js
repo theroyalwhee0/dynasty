@@ -5,9 +5,10 @@
 /**
  * General Imports.
  */
+const { isFunction } = require('@theroyalwhee0/istype');
 const { buildGraph } = require('./depends');
 const { getItem } = require('./items');
-const { isFunction, isObject } = require('./utilities/istype');
+
 
 /**
  * Configurator Member Imports.
@@ -34,14 +35,14 @@ async function dynasty(callback) {
   const context = {
     items: { },
     actions: [ ],
-    entryPoints: [ ]
+    entryPoints: [ ],
   };
   // Configurator members.
   const add = addFactory(context);
   const call = callFactory(context);
   const once = onceFactory(context);
   const value = valueFactory(context);
-  const entryPoint = entryPointFactory(context)
+  const entryPoint = entryPointFactory(context);
   const depends = dependsFactory(context);
   const attach = attachFactory(context);
   const extend = extendFactory(context);

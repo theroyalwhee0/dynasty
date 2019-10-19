@@ -6,8 +6,8 @@
  * Imports.
  */
 const { allProps } = require('@theroyalwhee0/please');
+const { isObject } = require('@theroyalwhee0/istype');
 const { getDirectDependenciesOf } = require('./depends');
-const { isObject } = require('./utilities/istype');
 
 /**
  * Resolve Dependent Items.

@@ -47,6 +47,11 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
+"@theroyalwhee0/istype@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@theroyalwhee0/istype/-/istype-0.0.1.tgz#dfd6dce9b6665b7c494f053d32cb8c845a822457"
+  integrity sha512-ZnpOe7xpgaHLve4l2TRpmDT3zvek/g3/7roSSy5vC6PYP/eXngoHS1IZ9Bi5Hgqt/ojLa42fJaZ5VuZJKoam7A==
+
 "@theroyalwhee0/please@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@theroyalwhee0/please/-/please-2.0.0.tgz#cf9536f218dc0b9b1fa58395b7992f0b0827d0a3"
