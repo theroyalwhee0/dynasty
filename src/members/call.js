@@ -3,11 +3,16 @@
  */
 
 /**
+ * Imports.
+ */
+const { isFunction } = require('@theroyalwhee0/istype');
+
+/**
  * Call factory.
  */
 function callFactory() {
   return function call(builder) {
-    if(typeof builder !== 'function') {
+    if(!isFunction(builder)) {
       return Promise.reject(new Error(`"builder" should be a function: ${builder} (${typeof builder})`));
     }
     function callParam(item) {

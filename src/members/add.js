@@ -3,6 +3,11 @@
  */
 
 /**
+ * Imports.
+ */
+const { isString, isFunction } = require('@theroyalwhee0/istype');
+
+/**
  * Item factory.
  */
 function itemFactory(initial) {
@@ -31,7 +36,7 @@ function itemFactory(initial) {
  */
 async function addCore(context, name, props) {
   const { items } = context;
-  if(typeof name !== 'string') {
+  if(!isString(name)) {
     return Promise.reject(new Error('"name" must be a string'));
   } else if(name in items) {
     return Promise.reject(new Error(`item named "${name}" already added`));
@@ -45,7 +50,7 @@ async function addCore(context, name, props) {
       throw new Error(`modifier "${modifier}" returned nothing in "${name}"`);
     }
   }
-  if(typeof item.creator !== 'function') {
+  if(!isFunction(item.creator)) {
     return Promise.reject(new Error(`item named "${name}" missing a creator`));
   }
   items[name] = item;

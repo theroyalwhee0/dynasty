@@ -1,18 +1,19 @@
 /**
  * @theroyalwhee0/dynasty:src/members/once.js
  */
- 
+
 /**
  * Imports.
  */
-const UNSET = require('../utilities/unset');
+const UNSET = require('../unset');
+const { isFunction } = require('@theroyalwhee0/istype');
 
 /**
  * Once factory.
  */
 function onceFactory() {
   return async function once(builder) {
-    if(typeof builder !== 'function') {
+    if(!isFunction(builder)) {
       throw new Error(`"builder" should be a function: "${builder}" (${typeof builder})`);
     }
     return function onceParam(item) {

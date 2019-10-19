@@ -6,6 +6,7 @@
  * Imports.
  */
 const { DepGraph } = require('dependency-graph');
+const { isString, isObject } = require('@theroyalwhee0/istype');
 
 /**
  * Transform dependancies.
@@ -19,12 +20,12 @@ function transformDeps(dependancies) {
   }
   const depends = { };
   for(let item of dependancies) {
-    if(typeof item === 'string') {
+    if(isString(item)) {
       depends[item] = item;
-    } else if(item && typeof item === 'object' && !Array.isArray(item)) {
+    } else if(isObject(item)) {
       for(let key in item) {
         const value = item[key];
-        if(typeof value === 'string') {
+        if(isString(value)) {
           depends[key] = value;
         } else {
           throw new Error(`Unrecognized object value "${value}" (${typeof value}) for key "${key}"`);
