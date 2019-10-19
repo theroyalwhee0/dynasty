@@ -10,7 +10,7 @@ npm install @theroyalwhee0/dynasty
 
 yarn add @theroyalwhee0/dynasty
 
-## Requirements.
+## Requirements
 This requires a modern browser supporting arrow functions, Symbols, Promises, and async function. To use with older browsers the code would need to be compiled and polyfilled.
 
 ## Documentation
@@ -131,12 +131,14 @@ Uses the specified value as the value of the node. The value is resolved if it i
 add('name1', value(1234));
 ```
 
-## Links.
+## Links
 - GitHub: https://github.com/theroyalwhee0/dynasty
 - NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
 
-## History.
+## History
 - 0.0.6 Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please)
 
-## License
-See LICENSE file. Dynasty is released under Apache-2.0 license.
+## Legal & License
+Copyright 2019 Adam Mill
+
+Dynasty is released under Apache 2 license.  See LICENSE for more details.
