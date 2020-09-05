@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "author": "Adam Mill <theroyalwhee0@gmail.com>",
   "license": "Apache-2.0",
+  "typings": "src/index.d.ts",
   "directories": {
     "example": "example",
     "test": "test"
