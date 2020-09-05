@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Dynasty",
   "main": "src/index.js",
   "author": "Adam Mill <theroyalwhee0@gmail.com>",
@@ -25,14 +25,14 @@
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
-    "eslint": "6.5.1",
-    "mocha": "6.2.1",
+    "eslint": "7.8.1",
+    "mocha": "8.1.3",
     "sinon": "7.5.0"
   },
   "dependencies": {
-    "@theroyalwhee0/istype": "0.0.1",
-    "@theroyalwhee0/please": "2.0.0",
-    "dependency-graph": "0.8.0"
+    "@theroyalwhee0/istype": "0.0.2",
+    "@theroyalwhee0/please": "2.0.2",
+    "dependency-graph": "0.9.0"
   },
   "scripts": {
     "test": "mocha --sort --recursive --check-leaks",

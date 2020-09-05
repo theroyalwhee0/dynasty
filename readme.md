@@ -136,9 +136,10 @@ add('name1', value(1234));
 - NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
 
 ## History
+- 0.0.8 Add TypeScript bindings. Bump version on depends.
 - 0.0.6 Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please). Move istype to [@theroyalwhee0/istype](https://github.com/theroyalwhee0/istype).
 
 ## Legal & License
-Copyright 2019 Adam Mill
+Copyright 2019-2020 Adam Mill
 
 Dynasty is released under Apache 2 license.  See LICENSE for more details.
