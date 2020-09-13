@@ -136,6 +136,7 @@ add('name1', value(1234));
 - NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
 
 ## History
+- 0.0.9 Improved TypeScript support. Add TypeScript example.
 - 0.0.8 Add TypeScript bindings. Bump version on depends.
 - 0.0.6 Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please). Move istype to [@theroyalwhee0/istype](https://github.com/theroyalwhee0/istype).
 
