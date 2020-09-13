@@ -1,11 +1,12 @@
 declare module "@theroyalwhee0/dynasty" {
-  type DynastyParamFn = () => unknown;
-  type DynastyCreatorFn = () => unknown;
+  // Hack. We don't care what these functions actually return, we just need to differentiate them.
+  type DynastyParamFn = () => string;
+  type DynastyCreatorFn = () => number;
   /**
    * @param dyn - The function which returns the injected dependencies.
    * @template TDeps - Data structure for dependencies being returned from dyn().
    */
-  type DynastyFactoryFn = (dyn?: <TDeps>() => TDeps) => unknown;
+  type DynastyFactoryFn<TDeps> = (dyn?: () => TDeps) => unknown;
   type DynastyMemberFns = {
     /**
      * Adds a node to the dependency tree.
@@ -48,6 +49,7 @@ declare module "@theroyalwhee0/dynasty" {
     /**
      * Calls a factory function to build the value for this node. The factory is supplied with the dependencies and arguments attached by other param functions.
      * @param builder - A factory function in which dependencies are passed into.
+     * @template TDeps - Data structure for dependencies being returned from dyn().
      * @returns A promise that resolves a creator function.
      * ```
      * function myFactory(dyn) {
@@ -58,7 +60,9 @@ declare module "@theroyalwhee0/dynasty" {
      * add('name1', call(myFactory), depends('name2'));
      * ```
      */
-    call: (builder: DynastyFactoryFn) => Promise<DynastyCreatorFn>;
+    call: <TDeps>(
+      builder: DynastyFactoryFn<TDeps>
+    ) => Promise<DynastyCreatorFn>;
 
     /**
      * Collects all of the nodes attached to the node into an object.That object is used as the nodes value.
@@ -104,6 +108,7 @@ declare module "@theroyalwhee0/dynasty" {
      * The factory is supplied with the dependencies and arguments attached by other param functions.
      * This is a singleton version of call.
      * @param builder - A factory function in which dependencies are passed into.
+     * @template TDeps - Data structure for dependencies being returned from dyn().
      * @returns A promise that resolves a creator function.
      * ```
      * function myFactory(dyn) {
@@ -114,7 +119,9 @@ declare module "@theroyalwhee0/dynasty" {
      * add('name1', once(myFactory), depends('name2'));
      * ```
      */
-    once: (builder: DynastyFactoryFn) => Promise<DynastyCreatorFn>;
+    once: <TDeps>(
+      builder: DynastyFactoryFn<TDeps>
+    ) => Promise<DynastyCreatorFn>;
 
     /**
      * Extracts a member of an object by name from an attached dependency.
@@ -131,7 +138,7 @@ declare module "@theroyalwhee0/dynasty" {
       name: string,
       member: string,
       options?: { bind: boolean }
-    ) => Promise<DynastyParamFn>;
+    ) => Promise<DynastyCreatorFn>;
 
     /**
      * Uses the specified value as the value of the node.
