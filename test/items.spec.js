@@ -60,7 +60,7 @@ describe('dynasty', () => {
         const depGraph = mockDepends();
         const getItem = mockGetItem();
         const pm = resolveDepItems('item1', depGraph, getItem);
-        expect(pm).to.be.rejectedWith(Error, /node "item1" not found/i);
+        return expect(pm).to.be.rejectedWith(Error, /node does not exist: item1/i);
       });
     });
   });
