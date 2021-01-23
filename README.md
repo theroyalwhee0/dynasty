@@ -3,12 +3,14 @@
 ## Description
 Dynasty is an asynchronous dependency injection library written in javascript.
 
+
 ## Installation
 npm install @theroyalwhee0/dynasty
 
 *or*
 
 yarn add @theroyalwhee0/dynasty
+
 
 ## Requirements
 This requires a modern browser supporting arrow functions, Symbols, Promises, and async function. To use with older browsers the code would need to be compiled and polyfilled.
@@ -17,6 +19,7 @@ This requires a modern browser supporting arrow functions, Symbols, Promises, an
 There is little in the way of documentation at the moment.
 
 See the example/ folder or review the Configuration Members reference below.
+
 
 ### Configurator Members
 
@@ -131,16 +134,25 @@ Uses the specified value as the value of the node. The value is resolved if it i
 add('name1', value(1234));
 ```
 
+
 ## Links
 - GitHub: https://github.com/theroyalwhee0/dynasty
 - NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
 
+
 ## History
-- 0.0.9 Improved TypeScript support. Add TypeScript example.
-- 0.0.8 Add TypeScript bindings. Bump version on depends.
-- 0.0.6 Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please). Move istype to [@theroyalwhee0/istype](https://github.com/theroyalwhee0/istype).
+- v0.0.10 - 2021-01-23
+    - Remove code obsoleted by updated dependency-graph library.
+    - Cleanup: Remove debug code, switch back to package-lock, fix README case.
+- v0.0.9
+    - Improved TypeScript support. Add TypeScript example.
+- v0.0.8
+    - Add TypeScript bindings. Bump version on depends.
+- v0.0.6
+    - Move promise helpers to [@theroyalwhee0/please](https://github.com/theroyalwhee0/please). Move istype to [@theroyalwhee0/istype](https://github.com/theroyalwhee0/istype).
+
 
 ## Legal & License
-Copyright 2019-2020 Adam Mill
+Copyright 2019-2021 Adam Mill
 
 Dynasty is released under Apache 2 license.  See LICENSE for more details.

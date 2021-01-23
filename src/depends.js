@@ -39,26 +39,9 @@ function transformDeps(dependancies) {
 }
 
 /**
- * Get direct dependancies of a DepGraph.
- * @method getDirectDependenciesOf
- * @param  {DepGraph}                depGraph The dependency graph.
- * @return {String}                 The name of the dependency.
- */
-function getDirectDependenciesOf(depGraph, name) {
-  if(!(depGraph instanceof DepGraph)) {
-    throw new Error(`"depGraph" must be a DepGraph`);
-  }
-  if(!depGraph.hasNode(name)) {
-    throw new Error(`Node "${name}" not found`);
-  }
-  return depGraph.outgoingEdges[name] || [ ];
-}
-
-/**
  * Build dependancies graph.
  */
 function buildGraph(items) {
-  //console.log('@@ items', JSON.stringify(items, null, '  '));
   // NOTE: Object key is dependency name, object value is export name.
   const depGraph = new DepGraph();
   const keys = Object.keys(items);
@@ -82,5 +65,5 @@ function buildGraph(items) {
  * Exports.
  */
 module.exports = {
-  transformDeps, getDirectDependenciesOf, buildGraph,
+  transformDeps, buildGraph,
 };

@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Dynasty",
   "main": "src/index.js",
   "author": "Adam Mill <theroyalwhee0@gmail.com>",
@@ -32,13 +32,12 @@
   "dependencies": {
     "@theroyalwhee0/istype": "0.0.2",
     "@theroyalwhee0/please": "2.0.2",
-    "dependency-graph": "0.9.0"
+    "dependency-graph": "0.10.0"
   },
   "scripts": {
     "test": "mocha --sort --recursive --check-leaks",
     "test-watch": "mocha --watch --reporter=dot --sort --recursive --check-leaks",
     "test-watch-spec": "mocha --watch --reporter=spec --sort --recursive --check-leaks",
-    "lint": "eslint src/**/*.js test/**/*.js",
-    "lint-fix": "eslint --fix src/**/*.js test/**/*.js"
+    "lint": "eslint src/ test/"
   }
 }

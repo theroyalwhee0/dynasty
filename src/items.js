@@ -7,13 +7,12 @@
  */
 const { allProps } = require('@theroyalwhee0/please');
 const { isObject } = require('@theroyalwhee0/istype');
-const { getDirectDependenciesOf } = require('./depends');
 
 /**
  * Resolve Dependent Items.
  */
 async function resolveDepItems(name, depGraph, getItemFromGraph) {
-  const names = getDirectDependenciesOf(depGraph, name);
+  const names = depGraph.directDependenciesOf(name);
   const deps = { };
   for(let depName of names) {
     const dep = getItemFromGraph(depName, depGraph);
@@ -31,7 +30,7 @@ async function getItem(name, depGraph, context) {
   if(item === undefined) {
     return Promise.reject(new Error(`No item found with name of "${name}"`));
   } else {
-    const names = getDirectDependenciesOf(depGraph, name);
+    const names = depGraph.directDependenciesOf(name);
     const deps = { };
     for(let depName of names) {
       const dep = getItem(depName, depGraph, context);
