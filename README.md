@@ -155,4 +155,4 @@ add('name1', value(1234));
 ## Legal & License
 Copyright 2019-2021 Adam Mill
 
-Dynasty is released under Apache 2 license.  See LICENSE for more details.
+This library is released under Apache 2 license. See [LICENSE](https://github.com/theroyalwhee0/dynasty/blob/master/LICENSE) for more details.
