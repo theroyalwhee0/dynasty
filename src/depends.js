@@ -11,7 +11,7 @@ const { isString, isObject } = require('@theroyalwhee0/istype');
 /**
  * Transform dependancies.
  * @param  {Array<[Object,String]>} deps The dependancies to transform.
- * @return {Object}      The dependancies.
+ * @returns {Object}      The dependancies.
  */
 function transformDeps(dependancies) {
   // NOTE: Object key is dependency name, object value is export name.
