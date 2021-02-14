@@ -26,6 +26,8 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## History
+- v1.0.1 - 2021-02-14
+    - Fix link in readme.
 - v1.0.0 - 2021-02-14
     - Added config() to set configuration data.
     - Added $cfg to attach to query and attach specific configuration items.
