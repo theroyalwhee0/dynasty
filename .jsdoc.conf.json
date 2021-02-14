@@ -8,5 +8,10 @@
   },
   "source": {
     "include": [ "src/" ]
+  },
+  "templates": {
+    "default": {
+        "includeDate": false
+    }
   }
 }
