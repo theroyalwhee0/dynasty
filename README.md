@@ -16,7 +16,7 @@ yarn add @theroyalwhee0/dynasty
 This requires a modern browser supporting arrow functions, Symbols, Promises, and async function. To use with older browsers the code would need to be compiled and polyfilled.
 
 ## Documentation
-[API Documentation](https://theroyalwhee0.github.io/snowman/)
+[API Documentation](https://theroyalwhee0.github.io/dynasty/)
 See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example) folder.
 
 
