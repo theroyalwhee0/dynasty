@@ -1,6 +1,6 @@
 /**
  * @file Dynasty, asynchronous dependency injection.
- * @version v1.0.0
+ * @version v1.0.1
  * @author Adam Mill <hismajesty@theroyalwhee.com>
  * @copyright Copyright 2019-2021 Adam Mill
  * @license Apache-2.0
