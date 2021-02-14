@@ -5,9 +5,8 @@
 /**
  * Imports.
  */
-const chai = require('chai');
+const { describe, it, expect } = require('./testing');
 const UNSET = require('../src/unset');
-const { expect } = chai;
 
 /**
  * Test.

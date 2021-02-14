@@ -1,5 +1,8 @@
 /**
- * @theroyalwhee0/dynasty:src/members/call.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
@@ -8,9 +11,19 @@
 const { isFunction } = require('@theroyalwhee0/istype');
 
 /**
- * Call factory.
+ * Call Function factory.
+ * @returns {Function} The call function.
  */
 function callFactory() {
+  /**
+   * Call a factory function whenever an instance of this object is needed.
+   * This is a builder function.
+   * @public
+   * @typedef call
+   * @function
+   * @param {function} builder The factory function to call.
+   * @returns {promise<function>} The resulting parameter function.
+   */
   return function call(builder) {
     if(!isFunction(builder)) {
       return Promise.reject(new Error(`"builder" should be a function: ${builder} (${typeof builder})`));
@@ -30,4 +43,6 @@ function callFactory() {
 /**
  * Exports.
  */
-module.exports = callFactory;
+module.exports = {
+  callFactory,
+};

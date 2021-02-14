@@ -1,5 +1,9 @@
 /**
- * @theroyalwhee0/dynasty:src/index.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @version v1.0.0
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
@@ -8,55 +12,28 @@
 const { isFunction } = require('@theroyalwhee0/istype');
 const { buildGraph } = require('./depends');
 const { getItem } = require('./items');
-
-
-/**
- * Configurator Member Imports.
- */
-const addFactory = require('./members/add');
-const dependsFactory = require('./members/depends');
-const attachFactory = require('./members/attach');
-const extendFactory = require('./members/extend');
-const pullMemberFactory = require('./members/pullmember');
-const entryPointFactory = require('./members/entrypoint');
-const argsFactory = require('./members/args');
-const onceFactory = require('./members/once');
-const callFactory = require('./members/call');
-const valueFactory = require('./members/value');
-const collectFactory = require('./members/collect');
+const { configuratorFactory } = require('./members/index');
 
 /**
- * Dynasty factory.
+ * Dynasty.
+ * @public
+ * @param {function} callback The configurator callback were everything is setup.
+ * @returns {promise} No results.
  */
 async function dynasty(callback) {
   if(!isFunction(callback)) {
     throw new Error('"callback" must be a function');
   }
   const context = {
-    items: { },
     actions: [ ],
+    config: {},
+    items: { },
     entryPoints: [ ],
   };
-  // Configurator members.
-  const add = addFactory(context);
-  const call = callFactory(context);
-  const once = onceFactory(context);
-  const value = valueFactory(context);
-  const entryPoint = entryPointFactory(context);
-  const depends = dependsFactory(context);
-  const attach = attachFactory(context);
-  const extend = extendFactory(context);
-  const args = argsFactory(context);
-  const pullMember = pullMemberFactory(context);
-  const collect = collectFactory(context);
+  // Build configurator.
+  const configurator = configuratorFactory(context);
   // General.
-  await callback({
-    add,
-    call, once, value, entryPoint,
-    depends, attach, extend,
-    args, pullMember,
-    collect,
-  });
+  await callback(configurator);
   // Resolve all the promises we created. We take responsability for
   // chaining the promises we created.
   await Promise.all(context.actions);

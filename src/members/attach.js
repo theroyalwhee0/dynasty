@@ -1,5 +1,8 @@
 /**
- * @theroyalwhee0/dynasty:src/members/attach.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
@@ -8,9 +11,18 @@
 const { transformDeps } = require('../depends');
 
 /**
- * Attach factory.
+ * Attach Function factory.
+ * @returns {Function} The attach function.
  */
 function attachFactory() {
+  /**
+   * Attach and expose dependencies to the item.
+   * @public
+   * @typedef attach
+   * @function
+   * @param {...(string|object)} deps Any parameters to use as arguments to the item.
+   * @returns {promise<function>} The resulting parameter function.
+   */
   return function attach(...deps) {
     deps = transformDeps(deps);
     function attachParam(item) {
@@ -24,4 +36,6 @@ function attachFactory() {
 /**
  * Exports.
  */
-module.exports = attachFactory;
+module.exports = {
+  attachFactory,
+};

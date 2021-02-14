@@ -5,10 +5,9 @@
 /**
  * Imports.
  */
-const chai = require('chai');
+const { describe, it, expect } = require('./testing');
 const { DepGraph } = require('dependency-graph');
 const { buildGraph, transformDeps } = require('../src/depends');
-const { expect } = chai;
 
 /**
  * Test.
@@ -96,7 +95,7 @@ describe('dynasty', () => {
         // NOTE: Numbers are not supported as names.
         expect(() => {
           transformDeps({ });
-        }).to.throw(/"dependancies" should be an array/i);
+        }).to.throw(/"dependencies" should be an array/i);
       });
       it('should throw if given invalid type', () => {
         // NOTE: Numbers are not supported.

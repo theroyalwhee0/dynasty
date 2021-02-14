@@ -1,25 +1,28 @@
 /**
- * @theroyalwhee0/dynasty:src/depends.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
  * Imports.
  */
 const { DepGraph } = require('dependency-graph');
-const { isString, isObject } = require('@theroyalwhee0/istype');
+const { isArray, isString, isObject } = require('@theroyalwhee0/istype');
 
 /**
- * Transform dependancies.
- * @param  {Array<[Object,String]>} deps The dependancies to transform.
- * @returns {Object}      The dependancies.
+ * Transform dependencies.
+ * @param  {array<object|string>} deps The dependencies to transform.
+ * @returns {object} The dependencies.
  */
-function transformDeps(dependancies) {
+function transformDeps(dependencies) {
   // NOTE: Object key is dependency name, object value is export name.
-  if(!Array.isArray(dependancies)) {
-    throw new Error('"dependancies" should be an array');
+  if(!isArray(dependencies)) {
+    throw new Error('"dependencies" should be an array');
   }
   const depends = { };
-  for(let item of dependancies) {
+  for(let item of dependencies) {
     if(isString(item)) {
       depends[item] = item;
     } else if(isObject(item)) {
@@ -39,14 +42,18 @@ function transformDeps(dependancies) {
 }
 
 /**
- * Build dependancies graph.
+ * Build dependencies graph.
+ * Configuration items are not included in the graph.
+ *
+ * @param {object} items Transform the itemsinto a dependency graph.
+ * @returns {DepGraph} The resulting dependency graph.
  */
 function buildGraph(items) {
   // NOTE: Object key is dependency name, object value is export name.
   const depGraph = new DepGraph();
   const keys = Object.keys(items);
   for(const name of keys) {
-    // NOTE: All items must be added to graph before the dependancies are added.
+    // NOTE: All items must be added to graph before the dependencies are added.
     const item = items[name];
     depGraph.addNode(name, item);
   }
@@ -54,6 +61,10 @@ function buildGraph(items) {
     const item = items[name];
     const deps = Object.assign({ }, item && item.depends, item && item.attach);
     for(const key of Object.keys(deps)) {
+      if(/^\$/.test(key)) {
+        // These are config items.
+        continue;
+      }
       depGraph.addDependency(name, key);
     }
   }

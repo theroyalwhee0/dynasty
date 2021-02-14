@@ -5,10 +5,9 @@
 /**
  * Imports.
  */
-const chai = require('chai');
-const addFactory = require('../../src/members/add');
-const { mockCreator, mockParam, mockCoreContext } = require('./members.mock');
-const { expect } = chai;
+const { describe, it, expect } = require('../testing');
+const { addFactory } = require('../../src/members/add');
+const { mockCreator, mockParam, mockCoreContext } = require('../mocks/members');
 
 /**
  * Test.
@@ -45,7 +44,7 @@ describe('dynasty', () => {
         expect(item1).to.be.an('object');
         expect(item1.name).to.equal('item1');
         expect(item1.creator).to.be.a('function');
-        expect(item1.creator.length).to.equal(0);
+        expect(item1.creator.length).to.equal(1);
       });
       it('should reject if node name is not unique', async () => {
         const context = mockCoreContext();

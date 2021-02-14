@@ -1,11 +1,24 @@
 /**
- * @theroyalwhee0/dynasty:src/members/collect.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
- * Collect factory.
+ * Collect Function factory.
+ *
+ * @returns {Function} The collect function.
  */
 function collectFactory() {
+  /**
+   * Collect all attached dependencies into an object that becomes this item's value.
+   * This is a builder function.
+   * @public
+   * @typedef collect
+   * @function
+   * @returns {promise<function>} The resulting parameter function.
+   */
   return function collect() {
     function collectParam(item) {
       item.creator = (dyn) => {
@@ -21,4 +34,4 @@ function collectFactory() {
 /**
  * Exports.
  */
-module.exports = collectFactory;
+module.exports = { collectFactory };

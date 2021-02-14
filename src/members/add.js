@@ -1,5 +1,8 @@
 /**
- * @theroyalwhee0/dynasty:src/members/add.js
+ * @file Dynasty, asynchronous dependency injection.
+ * @author Adam Mill <hismajesty@theroyalwhee.com>
+ * @copyright Copyright 2019-2021 Adam Mill
+ * @license Apache-2.0
  */
 
 /**
@@ -9,6 +12,9 @@ const { isString, isFunction } = require('@theroyalwhee0/istype');
 
 /**
  * Item factory.
+ *
+ * @param The initial values to add to the factory.
+ * @returns {object} The item that was created.
  */
 function itemFactory(initial) {
   const values = {
@@ -33,6 +39,11 @@ function itemFactory(initial) {
 
 /**
  * Core add, wrapped by addFactory.
+ *
+ * @param {Object} context The shared Dynasty context.
+ * @param {string} name The name of the item.
+ * @param {promise<array<function>>} props An array of property functions to apply to this item.
+ * @returns {promise} No results.
  */
 async function addCore(context, name, props) {
   const { items } = context;
@@ -57,13 +68,24 @@ async function addCore(context, name, props) {
 };
 
 /**
- * Add factory.
- * NOTE: Because the user does not have to chain the add's promises we need to
- * keep track of them so we can catch rejections and resolve everything later.
+ * Add Function factory.
+ * @param {Object} The shared Dynasty context.
+ * @returns {Function} The add function.
  */
 function addFactory(context) {
+  /**
+   * Add a named item to the Dynasty collection.
+   * @public
+   * @typedef add
+   * @function
+   * @param {string} name The name of the item.
+   * @param {...Function} prop Various property functions to apply to this item.
+   * @returns {promise} No results.
+   */
   return function add(name, ...props) {
     const promise = addCore(context, name, props);
+    // NOTE: Because the user does not have to chain the add's promises we need to
+    // keep track of them so we can catch rejections and resolve everything later.
     context.actions.push(promise);
     return promise;
   };
@@ -72,4 +94,6 @@ function addFactory(context) {
 /**
  * Exports.
  */
-module.exports = addFactory;
+module.exports = {
+  addFactory,
+};

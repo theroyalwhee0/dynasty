@@ -5,11 +5,9 @@
 /**
  * Imports.
  */
-const chai = require('chai');
-const { spy } = require('sinon');
-const dependsFactory = require('../../src/members/depends');
-const { mockAdd, mockCreator, mockCoreContext } = require('./members.mock');
-const { expect } = chai;
+const { describe, it, expect, spy } = require('../testing');
+const { dependsFactory } = require('../../src/members/depends');
+const { mockAdd, mockCreator, mockCoreContext } = require('../mocks/members');
 
 /**
  * Test.

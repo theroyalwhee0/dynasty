@@ -5,12 +5,8 @@
 /**
  * Imports.
  */
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const { spy } = require('sinon');
+const { describe, it, expect, spy } = require('./testing');
 const { dynasty } = require('../src');
-chai.use(chaiAsPromised);
-const { expect } = chai;
 
 /**
  * Test.
@@ -32,15 +28,10 @@ describe('dynasty', () => {
     const call = cb.getCall(0);
     expect(call.args.length).to.equal(1);
     expect(call.args[0]).to.be.an('object');
-    const keys = Object.keys(call.args[0]);
-    expect(keys).to.have.members([
-      'add',        'args',
-      'attach',     'call',
-      'collect',    'depends',
-      'entryPoint', 'extend',
-      'once',       'pullMember',
-      'value',
-    ]);
+    const configurator = call.args[0];
+    expect(configurator.add).to.be.a('function');
+    expect(configurator.once).to.be.a('function');
+    expect(configurator.value).to.be.a('function');
     expect(results).to.equal(undefined);
   });
   it('should handle a basic case', async () => {
@@ -50,7 +41,7 @@ describe('dynasty', () => {
       expect(dynResults).to.be.an('object');
       const { multiplier } = dynResults;
       expect(multiplier).to.equal(1000);
-      return 3.14 * 1000;
+      return 3.14 * multiplier;
     });
     const cb = spy((configurator) => {
       expect(configurator).to.be.an('object');

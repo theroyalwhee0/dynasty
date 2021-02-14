@@ -1,5 +1,5 @@
 /**
- * Example showing off basic entryPoint, once, depend, and attach.
+ * Example showing off basic entryPoint, once, depends, and attach.
  */
 
 /**
