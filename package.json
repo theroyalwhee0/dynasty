@@ -1,7 +1,7 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "1.0.1",
-  "description": "Dynasty",
+  "version": "1.0.2",
+  "description": "Dynasty: asynchronous dependency injection",
   "main": "src/index.js",
   "author": "Adam Mill <hismajesty@theroyalwhee.com>",
   "license": "Apache-2.0",
