@@ -40,6 +40,31 @@ describe('dynasty', () => {
         config({ a: 'one', c: [ 4, 5, 6 ], d: 'Dee' });
         expect(context.config).to.eql({ a: 'one', b: 2, c: [ 3, 4, 5, 6 ], d: 'Dee' });
       });
+      it('should support config callbacks', async () => {
+        // Build mocks.
+        const context = mockCoreContext();
+        const config = configFactory(context);
+        await config({ a: 1, b: 2, c: [3] });
+        await config(() => {
+          return { a: 'one', c: [ 4, 5, 6 ], d: 'Dee' };
+        });
+        expect(context.config).to.eql({ a: 'one', b: 2, c: [ 3, 4, 5, 6 ], d: 'Dee' });
+      });
+      it('should support async config callbacks', async () => {
+        // Build mocks.
+        const context = mockCoreContext();
+        const config = configFactory(context);
+        config({ a: 1, b: 2, c: [3] });
+        config(async () => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({ a: 'one', c: [ 4, 5, 6 ], d: 'Dee' });
+            }, 100);
+          });
+        });
+        await Promise.all(context.actions.config.concat(context.actions.add));
+        expect(context.config).to.eql({ a: 'one', b: 2, c: [ 3, 4, 5, 6 ], d: 'Dee' });
+      });
     });
   });
 });

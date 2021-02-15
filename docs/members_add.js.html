@@ -114,7 +114,7 @@ function addFactory(context) {
     const promise = addCore(context, name, props);
     // NOTE: Because the user does not have to chain the add's promises we need to
     // keep track of them so we can catch rejections and resolve everything later.
-    context.actions.push(promise);
+    context.actions.add.push(promise);
     return promise;
   };
 }

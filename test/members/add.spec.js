@@ -34,8 +34,9 @@ describe('dynasty', () => {
         const addResults = await pm;
         expect(addResults).to.equal(undefined);
         await add('item2', creator, paramFn);
-        expect(context.actions.length).to.equal(2);
-        const actionResults = await Promise.all(context.actions);
+        expect(context.actions.config.length).to.equal(0);
+        expect(context.actions.add.length).to.equal(2);
+        const actionResults = await Promise.all(context.actions.config.concat(context.actions.add));
         expect(actionResults).to.deep.equal([ undefined, undefined ]);
         expect(creator.callCount).to.equal(2);
         expect(paramFn.callCount).to.equal(2);

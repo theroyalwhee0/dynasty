@@ -25,7 +25,10 @@ async function dynasty(callback) {
     throw new Error('"callback" must be a function');
   }
   const context = {
-    actions: [ ],
+    actions: {
+      config: [],
+      add: [],
+    },
     config: {},
     items: { },
     entryPoints: [ ],
@@ -36,7 +39,7 @@ async function dynasty(callback) {
   await callback(configurator);
   // Resolve all the promises we created. We take responsability for
   // chaining the promises we created.
-  await Promise.all(context.actions);
+  await Promise.all(context.actions.config.concat(context.actions.add));
   delete context.actions;
   // Put it all together.
   const depGraph = buildGraph(context.items);

@@ -14,7 +14,10 @@ const { addFactory } = require('../../src/members/add');
 function mockCoreContext() {
   return {
     config: { },
-    actions: [ ],
+    actions: {
+      config: [],
+      add: [],
+    },
     config: { },
     entryPoints: [ ],
     items: { },
