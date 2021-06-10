@@ -26,6 +26,9 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## History
+- v1.0.3 - 2021-06-10
+    - Bump depends for security.
+    - Remove reference to missing typings.
 - v1.0.2 - 2021-02-15
     - Add async callback support for config().
 - v1.0.1 - 2021-02-14
