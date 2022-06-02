@@ -5,11 +5,11 @@ Dynasty is an asynchronous dependency injection library written in javascript.
 
 
 ## Installation
-npm install @theroyalwhee0/dynasty
+`npm install @theroyalwhee0/dynasty`
 
 *or*
 
-yarn add @theroyalwhee0/dynasty
+`yarn add @theroyalwhee0/dynasty`
 
 
 ## Requirements
@@ -26,6 +26,8 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## History
+- v1.0.4 - 2022-06-02
+    - Bump depends for security.
 - v1.0.3 - 2021-06-10
     - Bump depends for security.
     - Remove reference to missing typings.
@@ -51,6 +53,6 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## Legal & License
-Copyright 2019-2021 Adam Mill
+Copyright 2019-2022 Adam Mill
 
 This library is released under Apache 2 license. See [LICENSE](https://github.com/theroyalwhee0/dynasty/blob/master/LICENSE) for more details.
