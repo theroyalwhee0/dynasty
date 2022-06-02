@@ -8,7 +8,7 @@
 /**
  * Imports.
  */
-const { isFunction, canHaveMembers } = require('@theroyalwhee0/istype');
+const { isObject, isArray, isFunction } = require('@theroyalwhee0/istype');
 
 /**
  * Pull Member Function factory.
@@ -27,7 +27,7 @@ function pullMemberFactory() {
    * @param {boolean} options.bind If the property is a function bind to parent. Defaults to true.
    * @returns {promise<function>} The resulting parameter function.
    */
-  return function pullMember(name, member, { bind=true }={}) {
+  return function pullMember(name, member, { bind = true } = {}) {
     function pullMemberParam(item) {
       item.creator = (dyn) => {
         const attached = dyn();
@@ -35,7 +35,7 @@ function pullMemberFactory() {
           return Promise.reject(new Error(`node "${name}" not attached`));
         }
         const item = attached[name];
-        if(!canHaveMembers(item)) {
+        if(!(isObject(item) || isArray(item) || isFunction(item))) {
           return Promise.reject(new Error(`node "${name}" can not have members`));
         }
         if(!(member in item)) {

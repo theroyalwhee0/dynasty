@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Dynasty: asynchronous dependency injection",
   "main": "src/index.js",
   "author": "Adam Mill <hismajesty@theroyalwhee.com>",
@@ -25,13 +25,13 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "eslint": "7.8.1",
-    "jsdoc": "3.6.7",
-    "mocha": "8.3.2",
+    "jsdoc": "3.6.10",
+    "mocha": "10.0.0",
     "sinon": "7.5.0"
   },
   "dependencies": {
-    "@theroyalwhee0/istype": "2.0.2",
-    "@theroyalwhee0/please": "2.0.2",
+    "@theroyalwhee0/istype": "3.0.2",
+    "@theroyalwhee0/please": "2.0.5",
     "dependency-graph": "0.10.0",
     "jsonpath": "1.1.1",
     "lodash.mergewith": "4.6.2"
@@ -42,6 +42,7 @@
     "test-watch-spec": "mocha --watch --reporter=spec --sort --recursive --check-leaks",
     "lint": "eslint src/ test/",
     "docs": "jsdoc -c .jsdoc.conf.json",
-    "dryrun": "npm test && npm run lint && npm run docs && npm audit && npm publish --dry-run"
+    "dryrun": "npm test && npm run lint && npm run docs && npm audit && npm publish --dry-run",
+    "audit-prod": "npm audit --omit dev --omit optional"
   }
 }
