@@ -26,6 +26,9 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## History
+- v1.0.5 - 2022-11-13
+    - Bump depends for security.
+    - Cleanup build to match other projects.
 - v1.0.4 - 2022-06-02
     - Bump depends for security.
 - v1.0.3 - 2021-06-10
