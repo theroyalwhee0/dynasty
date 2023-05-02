@@ -22,6 +22,10 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
+  "dependencies": {
+    "@theroyalwhee0/istype": "^3.0.5",
+    "dependency-graph": "^0.11.0"
+  },
   "scripts": {
     "build": "mkdir -p ./dist; tsc && cp ./build/src/* ./dist/",
     "rebuild": "npm run clean && npm run build && npm run docs",
@@ -31,9 +35,5 @@
     "lint": "eslint .",
     "dryrun": "npm prune && npm audit && npm run rebuild && npm run lint && npm test && npm publish --dry-run",
     "audit": "npm audit --omit dev"
-  },
-  "dependencies": {
-    "@theroyalwhee0/istype": "^3.0.5",
-    "dependency-graph": "^0.11.0"
   }
 }

@@ -1,28 +1,27 @@
 import { DepGraph } from 'dependency-graph';
 import { DynastyContext } from "./context";
+import { DynastyItem } from './item';
 
 /**
  * Build dependencies graph.
  * Configuration items are not included in the graph.
- * @param {object} items Transform the itemsinto a dependency graph.
- * @returns {DepGraph} The resulting dependency graph.
- *
+ * @param {DynastyContext} context Transform the context into a dependency graph.
+ * @returns {DepGraph<DynastyItem>} The resulting dependency graph.
  */
-export function buildGraph(context:DynastyContext) {
+export function buildGraph(context: DynastyContext): DepGraph<DynastyItem> {
   // NOTE: Object key is dependency name, object value is export name.
-  const depGraph = new DepGraph();
-  for(const name in context.items) {
-    // NOTE: All items must be added to graph before the dependencies are added.
-    const item = context.items.get(name);
+  const depGraph = new DepGraph<DynastyItem>();
+  for (const [name, item] of context.items) {
+    // NOTE: All items must be added to graph before the 
+    // dependencies are added.
     depGraph.addNode(name, item);
   }
-  for(const name in context.items) {
-    const item = context.items.get(name);
-    const deps = Object.assign({ }, item && item.depends, item && item.attach);
-    for(const key of Object.keys(deps)) {
+  for (const [name, item] of context.items) {
+    const depends = new Set<string>([...item.depends, ...item.attach]);
+    for (const key of depends) {
       depGraph.addDependency(name, key);
     }
   }
   depGraph.overallOrder(); // Error check early.
   return depGraph;
-};
+}; 

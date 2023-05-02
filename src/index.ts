@@ -12,15 +12,15 @@ export async function dynasty(callback: DynastyConfiguratorCallback): Promise<vo
   const context = new DynastyContext();
   const configurator = new DynastyConfigurator(context);
   await callback(configurator)
-  console.log("@@", context.toString('\t'));
+  // console.log("@@", context.toString('\t'));
   const depends = buildGraph(context);
   const entryPoints = context.getEntryPoints();
-  if(entryPoints.length === 0) {
+  if (entryPoints.length === 0) {
     throw new Error(`There must be at least one entry point. None found.`);
   }
-  console.log("@@ depends" ,depends)
-  for(const entryPoint of entryPoints) {
-    console.log("@@ entryPoint", entryPoint);
+  // console.log("@@ depends" ,depends)
+  for (const entryPoint of entryPoints) {
+    // console.log("@@ entryPoint", entryPoint);
   }
 }
 

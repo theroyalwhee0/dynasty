@@ -8,22 +8,22 @@ describe('dynasty', () => {
         expect(dynasty.length).to.equal(1);
     });
     it('should support adding depends', async () => {
-        const pm = dynasty(({ name, once, depends, attach, entryPoint }) => {
+        const promise = dynasty(({ name, once, depends, attach, entryPoint }) => {
             class Dependencies {
                 @name("item0")
                 @once
                 @attach('item3')
-                item1() : Number {
+                item1(): Number {
                     return 1;
                 }
-    
+
                 @once
                 @entryPoint
                 @depends('item1')
                 item2() {
                     return 222;
                 }
-    
+
                 @once
                 item3(): Number {
                     return 333;
@@ -31,9 +31,8 @@ describe('dynasty', () => {
             };
             return Dependencies;
         });
-        expect(pm).to.be.a('promise');
-        const result = await pm;
+        expect(promise).to.be.a('promise');
+        const result = await promise;
         expect(result).to.be.undefined;
     });
 });
- 
