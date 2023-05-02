@@ -2,40 +2,38 @@
   "name": "@theroyalwhee0/dynasty",
   "version": "2.0.0",
   "description": "Dynasty: asynchronous dependency injection",
-  "main": "src/index.js",
-  "author": "Adam Mill <hismajesty@theroyalwhee.com>",
+  "main": "dist/index.js",
+  "author": "Adam Mill <hismajesty@theroyalwhee.com> (https://www.theroyalwhee.com)",
   "license": "Apache-2.0",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/theroyalwhee0/dynasty.git"
-  },
   "keywords": [
     "di",
     "dependency"
   ],
-  "bugs": {
-    "url": "https://github.com/theroyalwhee0/dynasty/issues"
-  },
-  "homepage": "https://github.com/theroyalwhee0/dynasty#readme",
   "devDependencies": {
-    "chai": "4.2.0",
-    "eslint": "7.8.1",
-    "mocha": "10.0.0",
-    "sinon": "7.5.0"
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/sinon": "^10.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.39.0",
+    "mocha": "^10.2.0",
+    "sinon": "^15.0.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "build": "mkdir -p ./dist; tsc && cp ./build/src/* ./dist/",
+    "rebuild": "npm run clean && npm run build && npm run docs",
+    "clean": "mkdir -p ./dist && [ ! -z \"$(find ./dist/ -maxdepth 1 -type f -print -quit)\" ] && rm -R ./dist/*; true",
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
+    "test-watch": "mocha --reporter dot --watch --watch-files src/**/*.ts --watch-files test/**/*.test.ts --require ts-node/register test/**/*.test.ts",
+    "lint": "eslint .",
+    "dryrun": "npm prune && npm audit && npm run rebuild && npm run lint && npm test && npm publish --dry-run",
+    "audit": "npm audit --omit dev"
   },
   "dependencies": {
-    "@theroyalwhee0/istype": "3.0.2",
-    "dependency-graph": "0.10.0",
-  },
-  "scripts": {    "clean": "mkdir -p ./docs && [ ! -z \"$(find ./docs/ -maxdepth 1 -type f -print -quit)\" ] && rm -R ./docs/*; true",
-    "test": "mocha --sort --bail --recursive --check-leaks",
-    "test-watch": "mocha --watch --reporter=dot --sort --recursive --check-leaks",
-    "test-watch-spec": "mocha --watch --reporter=spec --sort --recursive --check-leaks",
-    "lint": "eslint src/ test/",
-    "dryrun": "npm run lint && npm run rebuild && npm test && npm audit && npm publish --dry-run",
-    "audit": "npm audit --omit dev"
+    "@theroyalwhee0/istype": "^3.0.5",
+    "dependency-graph": "^0.11.0"
   }
 }
