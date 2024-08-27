@@ -1,14 +1,11 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "1.0.5",
+  "version": "2.0.0-alpha.0",
   "description": "Dynasty: asynchronous dependency injection",
-  "main": "src/index.js",
-  "author": "Adam Mill <hismajesty@theroyalwhee.com>",
+  "author": "Adam Mill <hismajesty@theroyalwhee.com> (https://www.theroyalwhee.com/)",
   "license": "Apache-2.0",
-  "directories": {
-    "example": "example",
-    "test": "test"
-  },
+  "main": "dist/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theroyalwhee0/dynasty.git"
@@ -17,34 +14,40 @@
     "di",
     "dependency"
   ],
+  "homepage": "https://github.com/theroyalwhee0/dynasty#readme",
   "bugs": {
     "url": "https://github.com/theroyalwhee0/dynasty/issues"
   },
-  "homepage": "https://github.com/theroyalwhee0/dynasty#readme",
   "devDependencies": {
-    "chai": "4.2.0",
-    "chai-as-promised": "7.1.1",
-    "eslint": "7.8.1",
-    "jsdoc": "3.6.10",
-    "mocha": "10.0.0",
-    "sinon": "7.5.0"
+    "@eslint/js": "9.8.0",
+    "@istanbuljs/nyc-config-typescript": "1.0.2",
+    "@types/chai": "4.3.17",
+    "@types/eslint__js": "8.42.3",
+    "@types/lodash.once": "4.1.9",
+    "@types/mocha": "10.0.7",
+    "@typescript-eslint/eslint-plugin": "8.0.0",
+    "@typescript-eslint/parser": "8.0.0",
+    "c8": "10.1.2",
+    "chai": "5.1.1",
+    "eslint": "9.8.0",
+    "mocha": "10.7.3",
+    "tsx": "4.16.5",
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.0.0"
   },
   "dependencies": {
-    "@theroyalwhee0/istype": "3.0.2",
-    "@theroyalwhee0/please": "2.0.5",
-    "dependency-graph": "0.10.0",
-    "jsonpath": "1.1.1",
-    "lodash.mergewith": "4.6.2"
+    "lodash.once": "4.1.1"
   },
   "scripts": {
-    "rebuild": "npm run clean && npm run docs",
-    "clean": "mkdir -p ./docs && [ ! -z \"$(find ./docs/ -maxdepth 1 -type f -print -quit)\" ] && rm -R ./docs/*; true",
-    "test": "mocha --sort --bail --recursive --check-leaks",
-    "test-watch": "mocha --watch --reporter=dot --sort --recursive --check-leaks",
-    "test-watch-spec": "mocha --watch --reporter=spec --sort --recursive --check-leaks",
-    "lint": "eslint src/ test/",
-    "docs": "jsdoc -c .jsdoc.conf.json",
-    "dryrun": "npm run lint && npm run rebuild && npm test && npm audit && npm publish --dry-run",
-    "audit": "npm audit --omit dev"
+    "build": "tsc",
+    "develop": "npm run -s develop:once && npm run -s develop:test",
+    "develop:once": "npm run -s build",
+    "develop:test": "mocha --watch --reporter dot",
+    "lint": "tsc --noEmit && eslint src/**/*.ts",
+    "test": "npm run -s test:runner",
+    "test:runner": "c8 --reporter text-summary mocha",
+    "coverage": "c8 --reporter text mocha --reporter min",
+    "dryrun": "npm run -s clean && npm run -s build && npm run -s lint && npm run -s test",
+    "clean": "rm -rf dist .build ; mkdir -p dist"
   }
 }

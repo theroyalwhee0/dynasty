@@ -1,0 +1,5 @@
+{
+    "import": "tsx",
+    "reporter": "spec",
+    "spec": "src/**/*.test.ts"
+}
