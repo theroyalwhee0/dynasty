@@ -1,7 +1,7 @@
 # Dynasty: @theroyalwhee0/dynasty
 
 ## Description
-Dynasty 2 is a typesafe asynchronous dependency injection framework for TypeScript.
+Dynasty v2 is a typesafe asynchronous dependency injection framework for TypeScript.
 
 
 ## Installation
@@ -44,8 +44,8 @@ import Dynasty from '@theroyalwhee0/dynasty';
 See the [examples](./examples/Examples.md) for more usage demonstrations.
 
 
-## Differences from Dynasty 1.x
-Dynasty v2 is a complete rewrite of Dynasty 1.x. The librarie's approach to dependency injection is completly different. Dynasty v2 does not have a dependency graph. Instead, it helps the developer to manage their dependencies explicitly. Instead of using string-keyed dependencies, Dynasty v2 manages dependencies as normal typed TypeScript variables. Dynasty v2 is built as an ESModule library.
+## Differences from Dynasty v1
+Dynasty v2 is a complete rewrite of Dynasty v1. The library's approach to dependency injection is completly different. Dynasty v2 does not have a dependency graph. Instead, it helps the developer to manage their dependencies explicitly. Instead of using string-keyed dependencies, Dynasty v2 manages dependencies as normal typed TypeScript variables. Dynasty v2 is built as an ESModule library.
 
 
 ## Links
