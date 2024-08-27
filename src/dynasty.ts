@@ -3,12 +3,12 @@ import { Dependencies, Dependency, DependencyRecord, isDependency, markDependenc
 import { isPromise, UnknownRecord } from "./helpers.js";
 
 /**
- * A factory function that creates a value from a list of arguments.
+ * A factory function that creates a value with a list of arguments.
  */
 export type FactoryFn<TArgs extends readonly unknown[], T> = (...args: TArgs) => T | Promise<T>;
 
 /**
- * A factory function that creates an instance of a class.
+ * A factory function that creates an instance of a class with a list of arguments.
  */
 export type FactoryClass<TArgs extends readonly unknown[], T> = new (...args: TArgs) => T;
 
