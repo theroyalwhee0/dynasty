@@ -89,7 +89,7 @@ export class Dynasty {
                         : isDependency(value) ? await value()
                             : value;
             }
-            // UNSAFE: Force type on generic Record.
+            // UNSAFE: Force type on UnknownRecord.
             return result as DependencyRecord<T>;
         });
     }
