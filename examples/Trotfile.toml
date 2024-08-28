@@ -1,7 +1,0 @@
-[actions]
-all = ["compact", "animal_query", "char_sheet", "juicer", 'customers']
-animal_query = "npx tsx ./animal_query.ts"
-char_sheet = "npx tsx ./char_sheet.ts"
-juicer = "npx tsx ./juicer.ts"
-customers = "npx tsx ./customers.ts"
-compact = "npx tsx ./compact.ts"
