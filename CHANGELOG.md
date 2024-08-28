@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Supports factory functions.
     - Supports classes factories.
     - Supports value instances.
-    - Support resolvable properties on records.
+    - Supports resolvable properties on records.
+    - Supports configuration with selectors and get.
 ## Deprecated
 - The v1.x JavaScript branch is no longer maintained.
 
