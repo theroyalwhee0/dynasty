@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { Dynasty, newable } from "./dynasty";
 import { Dependency, isDependency } from "./depends";
+import { Config } from "./config";
 
 /**
  * Counter factory.
@@ -92,8 +93,8 @@ describe('Dynasty', () => {
             const _two = dyn.value(2);
             // @ts-expect-error This should be missing an argument.
             const dependency = dyn.once(noDefaultCounterFactory, [eight] as const);
-            // NOTE: This works without the arguments because the noDefaultCounterFactory 
-            // function calls a function with default values of it's own.
+            // NOTE: This works without the arguments because noDefaultCounterFactory 
+            // calls counterFactory which has default values of it's own.
             expect(dependency).to.be.a('function');
             const promise = dependency();
             expect(promise).to.be.a('promise');
@@ -271,6 +272,26 @@ describe('Dynasty', () => {
             expect(promise).to.be.a('promise');
             const result = await promise;
             expect(result).to.eql({ d: 5, e: "7", f: true });
+        });
+    });
+    describe('config', () => {
+        // NOTE: See src/config.test.ts for tests of the Config class.
+        it('should be a method', () => {
+            expect(Dynasty.prototype.config).to.be.a('function');
+            expect(Dynasty.prototype.config.length).to.equal(1);
+        });
+        it('should support an empty configuration', async () => {
+            const dyn = new Dynasty();
+            type MyConfig = {};
+            const cfg = dyn.config<MyConfig>({});
+            expect(cfg).to.be.an.instanceOf(Config);
+            const all = await cfg.all(); // 'all' is a Dependency<MyConfig>.
+            expect(all).to.be.an('function');
+            const results = await dyn.start(all)
+            expect(results).to.be.an('array');
+            expect(results.length).to.equal(1);
+            const [data] = results;
+            expect(data).to.eql({});
         });
     });
 });

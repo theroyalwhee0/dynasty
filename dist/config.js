@@ -1,5 +1,5 @@
 /**
- * Configuration.
+ * Dynasty Configuration.
  */
 export class Config {
     /**
