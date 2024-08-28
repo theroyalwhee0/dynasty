@@ -46,9 +46,18 @@ const appConfigDefault: AppConfig = {
 };
 
 /**
+ * Options for request handler.
+ */
+type RequestHandlerOptions = {
+    log: Log;
+    config: AppConfig;
+    mimeType: string;
+};
+
+/**
  * Request handler.
  */
-function requestHandlerFactory(log: Log, config: AppConfig, mimeType: string): RequestListener {
+function requestHandlerFactory({ log, config, mimeType }: RequestHandlerOptions): RequestListener {
     const { content } = config;
     return (req: IncomingMessage, res: ServerResponse) => {
         const date = new Date().toISOString();
@@ -88,8 +97,9 @@ async function main() {
      * Configuration.
      */
     const cfg = dyn.config<AppConfig>(appConfigDefault);
-    cfg.update({ // Override default configuration.
+    cfg.update({ // Set port and logMethod by object.
         port: 8080,
+        logMethod: 'info',
     });
     cfg.set("content", "Hello TypeScript!"); // Set content by key.
 
@@ -112,7 +122,13 @@ async function main() {
      */
     const all = cfg.all(); // Get all of the configuration dependency.
     const mimeType = cfg.get("mimeType"); // Get mimeType dependency by key.
-    const requestHandler = dyn.many(requestHandlerFactory, [log, all, mimeType]);
+    const requestHandlerOptions = dyn.record<RequestHandlerOptions>({
+        // Combine config dependencies with a record to build async options.
+        log,
+        config: all,
+        mimeType
+    });
+    const requestHandler = dyn.many(requestHandlerFactory, [requestHandlerOptions]);
 
     /**
      * HttpServer.
