@@ -30,8 +30,10 @@
     "@typescript-eslint/parser": "8.0.0",
     "c8": "10.1.2",
     "chai": "5.1.1",
+    "concurrently": "8.2.2",
     "eslint": "9.8.0",
     "mocha": "10.7.3",
+    "nodemon": "3.1.4",
     "tsx": "4.16.5",
     "typescript": "5.5.4",
     "typescript-eslint": "8.0.0"
@@ -44,6 +46,7 @@
     "develop": "npm run -s develop:once && npm run -s develop:test",
     "develop:once": "npm run -s build",
     "develop:test": "mocha --watch --reporter dot",
+    "develop:coverage": "c8 --skip-full --reporter text mocha --reporter dot",
     "lint": "tsc --noEmit && eslint src/**/*.ts",
     "test": "npm run -s test:runner",
     "test:runner": "c8 --reporter text-summary mocha",

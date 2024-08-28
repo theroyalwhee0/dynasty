@@ -32,7 +32,7 @@ type AppConfig = {
     // Logger Configuration.
     logMethod: keyof Console & ('log' | 'info' | 'warn' | 'error' | 'debug' | 'trace');
     // Application Configuration.
-    exitAfter?: number; // Exit after N seconds.
+    exitAfter?: number; // Exit after N seconds. Not implemented.
 };
 
 /**
@@ -90,8 +90,15 @@ async function main() {
     const cfg = dyn.config<AppConfig>(appConfigDefault);
     cfg.update({ // Override default configuration.
         port: 8080,
-        content: "Hello TypeScript!",
-    }).readOnly(); // Mark configuration as read-only.
+    });
+    cfg.set("content", "Hello TypeScript!"); // Set content by key.
+
+    cfg.readOnly();  // Mark configuration as read-only.
+    // cfg.update({ port: 8080 }); // Should throw 'Unable to modify Dynasty configuration. It has been marked read-only' if uncommented.
+
+    if (cfg.has("exitAfter")) { // Use has() to check if key exists on the configuration.
+        throw new Error(`Feature 'exitAfter' is not implemented.`);
+    }
 
     /**
      * Logger.
@@ -103,9 +110,9 @@ async function main() {
     /**
      * Request handler.
      */
-    const allConfig = cfg.all(); // Get all configuration dependency.
+    const all = cfg.all(); // Get all of the configuration dependency.
     const mimeType = cfg.get("mimeType"); // Get mimeType dependency by key.
-    const requestHandler = dyn.many(requestHandlerFactory, [log, allConfig, mimeType]);
+    const requestHandler = dyn.many(requestHandlerFactory, [log, all, mimeType]);
 
     /**
      * HttpServer.

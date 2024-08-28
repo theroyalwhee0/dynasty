@@ -32,9 +32,6 @@ export class Config<T extends UnknownRecord> {
      * @param initial The initial configuration value. A shallow copy is made.
      */
     constructor(dyn: Readonly<Dynasty>, initial: Readonly<T>) {
-        if (typeof initial !== "object") {
-            throw new Error(`Configuration must be an object was '${typeof initial}'.`);
-        }
         this.data = { ...initial };
         this.dyn = dyn;
     }
@@ -43,8 +40,8 @@ export class Config<T extends UnknownRecord> {
      * Mark the configuration as read-only.
      * @returns Fluent interface.
      */
-    readOnly(): Readonly<this> {
-        this.isReadOnly = true;
+    readOnly(value = true) {
+        this.isReadOnly = value;
         return this;
     }
 
@@ -53,7 +50,7 @@ export class Config<T extends UnknownRecord> {
      * @param partialConfig Partial configuration to merge into the configuration.
      * @returns Fluent interface.
      */
-    update(partialConfig: Readonly<Partial<T>>): this {
+    update(partialConfig: Readonly<Partial<T>>) {
         if (this.isReadOnly) {
             throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
         }
@@ -66,7 +63,7 @@ export class Config<T extends UnknownRecord> {
      * @param config Full configuration to replace the current configuration with. A shallow copy is made.
      * @returns Fluent interface.
      */
-    replace(config: Readonly<T>): this {
+    replace(config: Readonly<T>) {
         if (this.isReadOnly) {
             throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
         }
@@ -86,8 +83,8 @@ export class Config<T extends UnknownRecord> {
     }
 
     /**
-     * 
-     * @param key 
+     * Get the configuration value by key.
+     * @param key The key of the configuration value. This must be keyof T.
      * @returns 
      */
     get<const K extends keyof T>(key: K): Dependency<T[K]> {
@@ -97,8 +94,31 @@ export class Config<T extends UnknownRecord> {
     }
 
     /**
+     * Set a configuration value by key.
+     * @param key The key of the configuration value. This must be keyof T.
+     * @param value The value to set.
+     * @returns Boolean indicating if the value was set.
+     */
+    set<const K extends keyof T>(key: K, value: T[K]) {
+        if (this.isReadOnly) {
+            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        }
+        this.data[key] = value;
+        return this;
+    }
+
+    /**
+     * Does the configuration have a given key?
+     * @param key The key to check.
+     * @returns True if the key exists in the configuration.
+     */
+    has<const K extends keyof T>(key: K): boolean {
+        return key in this.data;
+    }
+
+    /**
      * Get the entire configuration as a dependency.
-     * @returns The dependency for a shallow clone of the configuration.
+     * @returns The dependency for the entire configuration. A shallow copy is made.
      */
     all(): Dependency<T> {
         return this.dyn.many(() => {
