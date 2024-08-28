@@ -49,11 +49,12 @@ Dynasty v2 is a complete rewrite of Dynasty v1. The library's approach to depend
 
 
 ## Links
-- GitHub: https://github.com/theroyalwhee0/dynasty
-- NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
+- [@GitHub](https://github.com/theroyalwhee0/dynasty)
+- [@NPM](https://www.npmjs.com/package/@theroyalwhee0/dynasty)
+- [CHANGELOG](./CHANGELOG.md)
 
 
 ## Legal & License
 Copyright 2019-2024 Adam Mill
 
-This library is released under Apache 2 license. See [LICENSE](https://github.com/theroyalwhee0/dynasty/blob/master/LICENSE) for more details.
+This library is released under Apache 2 license. See [LICENSE](./LICENSE) for more details.
