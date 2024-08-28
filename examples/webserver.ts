@@ -7,6 +7,13 @@ import Dynasty from "../src";
 type Log = (...data: unknown[]) => void;
 
 /**
+ * Logger factory.
+ */
+function loggerFactory(method: keyof Console & ('log' | 'info' | 'warn' | 'error' | 'debug' | 'trace')): Log {
+    return console[method].bind(console);
+}
+
+/**
  * Application factory.
  */
 function appFactory(log: Log, httpServer: Server) {
@@ -23,20 +30,32 @@ type AppConfig = {
     mimeType: string;
     content: string;
     // Logger Configuration.
-    method: keyof Console & ('log' | 'info' | 'warn' | 'error' | 'debug' | 'trace');
+    logMethod: keyof Console & ('log' | 'info' | 'warn' | 'error' | 'debug' | 'trace');
     // Application Configuration.
-    exitAfter: number; // Exit after N seconds.
+    exitAfter?: number; // Exit after N seconds.
+};
+
+/**
+ * Default configuration.
+ */
+const appConfigDefault: AppConfig = {
+    port: 80,
+    mimeType: "text/plain",
+    content: "Hello World.",
+    logMethod: "info",
 };
 
 /**
  * Request handler.
  */
-function requestHandlerFactory(log: Log): RequestListener {
+function requestHandlerFactory(log: Log, config: AppConfig, mimeType: string): RequestListener {
+    const { content } = config;
     return (req: IncomingMessage, res: ServerResponse) => {
         const date = new Date().toISOString();
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end("Hello World!");
-        log(`[${date}] ${req.method} ${req.url}`);
+        const status = 200;
+        res.writeHead(status, { "Content-Type": mimeType });
+        res.end(content);
+        log(`[${date}] ${status} ${req.method} ${req.url}`);
     }
 }
 
@@ -53,6 +72,7 @@ function httpServerFactory(log: Log, port: number, requestHandler: RequestListen
     });
 }
 
+
 /**
  * Main function.
  */
@@ -65,19 +85,33 @@ async function main() {
     const dyn = new Dynasty();
 
     /**
+     * Configuration.
+     */
+    const cfg = dyn.config<AppConfig>(appConfigDefault);
+    cfg.update({ // Override default configuration.
+        port: 8080,
+        content: "Hello TypeScript!",
+    }).readOnly(); // Mark configuration as read-only.
+
+    /**
      * Logger.
      */
-    const log = dyn.value(console.log);
+    const log = dyn.once(loggerFactory, [
+        cfg.select((cfg) => cfg.logMethod) // Get log method dependency from inline configuration get,
+    ]);
 
     /**
      * Request handler.
      */
-    const requestHandler = dyn.many(requestHandlerFactory, [log]);
+    const allConfig = cfg.all(); // Get all configuration dependency.
+    const mimeType = cfg.get("mimeType"); // Get mimeType dependency by key.
+    const requestHandler = dyn.many(requestHandlerFactory, [log, allConfig, mimeType]);
 
     /**
      * HttpServer.
      */
-    const httpServer = dyn.many(httpServerFactory, [log, dyn.value(8080), requestHandler]);
+    const port = cfg.select((cfg) => cfg.port); // Get port dependency from separate configuration get.
+    const httpServer = dyn.many(httpServerFactory, [log, port, requestHandler]);
 
     /**
      * Start application.

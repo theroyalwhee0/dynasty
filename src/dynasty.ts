@@ -1,6 +1,7 @@
 import once from "lodash.once";
 import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from "./depends.js";
 import { isPromise, UnknownRecord } from "./helpers.js";
+import { Config } from "./config.js";
 
 /**
  * A factory function that creates a value with a list of arguments.
@@ -92,6 +93,15 @@ export class Dynasty {
             // UNSAFE: Force type on UnknownRecord.
             return result as DependencyRecord<T>;
         });
+    }
+
+    /**
+     * Configuration.
+     * @param initial The initial configuration value.
+     * @returns The configuration.
+     */
+    config<const C extends UnknownRecord>(initial: Readonly<C>): Config<C> {
+        return new Config<C>(this, initial);
     }
 
     /**
