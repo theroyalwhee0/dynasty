@@ -20,8 +20,7 @@ export default tseslint.config(
             // This causes issues with Record to object mapping as interfaces.
             // It can't be ignored because @ts-ignore is flagged as an error with
             // the suggestion to use @ts-expect-error instead, which also does not 
-            // work because it isn't an actual error.
-            // TODO: Turn this error off on a case by case basis.
+            // work because it isn't an error.
             '@typescript-eslint/consistent-type-definitions': 'off',
         }
     }
