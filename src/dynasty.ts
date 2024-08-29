@@ -39,7 +39,7 @@ export class Dynasty {
     /**
      * A singleton. Create a dependency that is resolved once.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     once<TArgs extends readonly unknown[], const T>
@@ -52,7 +52,7 @@ export class Dynasty {
     /**
      * Create a dependency that is resolved every time it is used.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     many<TArgs extends readonly unknown[], const T>

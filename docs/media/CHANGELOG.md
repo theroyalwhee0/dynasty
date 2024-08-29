@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] (v2.0.0-alpha.0)
+## [Unreleased]
 ### Added
 - Full rewrite in TypeScript. This is a breaking change to the entire API.
     - Not all features from v1 are implemented yet.
@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Supports value instances.
     - Supports resolvable properties on records.
     - Supports configuration with selectors and get.
-    - Added generated API documentation.
 ## Deprecated
 - The v1.x JavaScript branch is no longer maintained.
 
