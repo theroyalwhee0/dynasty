@@ -96,8 +96,8 @@ describe('Config', () => {
             const dynasty = new Dynasty();
             type MyConfig = { library: string };
             const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
-            cfg.readOnly();
-            expect(() => cfg.update({ library: 'board' })).to.throw('Unable to modify Dynasty configuration. It has been marked read-only');
+            cfg.lock();
+            expect(() => cfg.update({ library: 'board' })).to.throw('The Dynasty configuration is locked.');
         });
     });
     describe('replace', () => {
@@ -121,8 +121,8 @@ describe('Config', () => {
             const dynasty = new Dynasty();
             type MyConfig = { library: string };
             const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
-            cfg.readOnly();
-            expect(() => cfg.replace({ library: 'board' })).to.throw('Unable to modify Dynasty configuration. It has been marked read-only');
+            cfg.lock();
+            expect(() => cfg.replace({ library: 'board' })).to.throw('The Dynasty configuration is locked.');
         });
     });
     describe('set', () => {
@@ -146,8 +146,29 @@ describe('Config', () => {
             const dynasty = new Dynasty();
             type MyConfig = { library: string };
             const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
-            cfg.readOnly();
-            expect(() => cfg.set('library', 'board')).to.throw('Unable to modify Dynasty configuration. It has been marked read-only');
+            cfg.lock();
+            expect(() => cfg.set('library', 'board')).to.throw('The Dynasty configuration is locked.');
+        });
+    });
+    describe('lock and unlock', () => {
+        it('should be methods', () => {
+            expect(Config.prototype.lock).to.be.a('function');
+            expect(Config.prototype.lock.length).to.equal(0);
+            expect(Config.prototype.unlock).to.be.a('function');
+            expect(Config.prototype.unlock.length).to.equal(0);
+        });
+        it('should lock and unlock the configuration', () => {
+            const dynasty = new Dynasty();
+            type MyConfig = { library: string };
+            const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
+            expect(cfg.isLocked).to.be.false;
+            cfg.lock();
+            expect(cfg.isLocked).to.be.true;
+            expect(() => {
+                cfg.set('library', 'board');
+            }).to.throw('The Dynasty configuration is locked.');
+            cfg.unlock();
+            expect(cfg.isLocked).to.be.false;
         });
     });
 });

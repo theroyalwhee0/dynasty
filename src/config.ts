@@ -20,28 +20,45 @@ export class Config<T extends UnknownRecord> {
     /**
      * The parent Dynasty instance.
      */
-    private dyn: Dynasty;
+    private dynasty: Dynasty;
 
     /**
-     * Read-only flag.
+     * Locked flag.
      */
-    private isReadOnly = false;
+    private lockFlag = false;
 
     /**
      * Constructor.
      * @param initial The initial configuration value. A shallow copy is made.
      */
-    constructor(dyn: Readonly<Dynasty>, initial: Readonly<T>) {
+    constructor(dynasty: Readonly<Dynasty>, initial: Readonly<T>) {
         this.data = { ...initial };
-        this.dyn = dyn;
+        this.dynasty = dynasty;
     }
 
     /**
-     * Mark the configuration as read-only.
+     * Is the configuration locked?
+     */
+    get isLocked() {
+        return this.lockFlag;
+    }
+
+    /**
+     * Lock the configuration.
+     * Attempts to update the configuration after this will throw.
      * @returns Fluent interface.
      */
-    readOnly(value = true) {
-        this.isReadOnly = value;
+    lock() {
+        this.lockFlag = true;
+        return this;
+    }
+
+    /**
+     * Unlock the configuration.
+     * @returns Fluent interface.
+     */
+    unlock(): Config<T> {
+        this.lockFlag = false;
         return this;
     }
 
@@ -51,8 +68,8 @@ export class Config<T extends UnknownRecord> {
      * @returns Fluent interface.
      */
     update(partialConfig: Readonly<Partial<T>>) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         Object.assign<T, Partial<T>>(this.data, partialConfig);
         return this;
@@ -64,8 +81,8 @@ export class Config<T extends UnknownRecord> {
      * @returns Fluent interface.
      */
     replace(config: Readonly<T>) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         this.data = { ...config };
         return this;
@@ -77,7 +94,7 @@ export class Config<T extends UnknownRecord> {
      * @returns The dependency for the configuration value.
      */
     select<R>(selector: (config: Readonly<T>) => R): Dependency<R> {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return selector(this.data);
         }, []);
     }
@@ -88,7 +105,7 @@ export class Config<T extends UnknownRecord> {
      * @returns 
      */
     get<const K extends keyof T>(key: K): Dependency<T[K]> {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return this.data[key];
         }, []);
     }
@@ -100,8 +117,8 @@ export class Config<T extends UnknownRecord> {
      * @returns Boolean indicating if the value was set.
      */
     set<const K extends keyof T>(key: K, value: T[K]) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         this.data[key] = value;
         return this;
@@ -121,7 +138,7 @@ export class Config<T extends UnknownRecord> {
      * @returns The dependency for the entire configuration. A shallow copy is made.
      */
     all(): Dependency<T> {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return { ...this.data };
         }, []);
     }

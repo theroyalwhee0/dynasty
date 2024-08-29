@@ -103,8 +103,7 @@ async function main() {
     });
     cfg.set("content", "Hello TypeScript!"); // Set content by key.
 
-    cfg.readOnly();  // Mark configuration as read-only.
-    // cfg.update({ port: 8080 }); // Should throw 'Unable to modify Dynasty configuration. It has been marked read-only' if uncommented.
+    cfg.lock();  // Lock the configuration. Any updates after this will throw.
 
     if (cfg.has("exitAfter")) { // Use has() to check if key exists on the configuration.
         throw new Error(`Feature 'exitAfter' is not implemented.`);
@@ -114,7 +113,7 @@ async function main() {
      * Logger.
      */
     const log = dyn.once(loggerFactory, [
-        cfg.select((cfg) => cfg.logMethod) // Get log method dependency from inline configuration get,
+        cfg.select((cfg) => cfg.logMethod) // Get log method dependency with inline configuration get,
     ]);
 
     /**
