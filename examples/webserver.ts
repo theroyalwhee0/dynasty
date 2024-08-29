@@ -32,7 +32,7 @@ type AppConfig = {
     // Logger Configuration.
     logMethod: keyof Console & ('log' | 'info' | 'warn' | 'error' | 'debug' | 'trace');
     // Application Configuration.
-    exitAfter?: number; // Exit after N seconds. Not implemented.
+    exitAfter?: number; // Not implemented.
 };
 
 /**
@@ -62,7 +62,7 @@ function requestHandlerFactory({ log, config, mimeType }: RequestHandlerOptions)
     return (req: IncomingMessage, res: ServerResponse) => {
         const date = new Date().toISOString();
         const status = 200;
-        res.writeHead(status, { "Content-Type": mimeType });
+        res.writeHead(status, { "content-type": mimeType });
         res.end(content);
         log(`[${date}] ${status} ${req.method} ${req.url}`);
     }
@@ -119,13 +119,11 @@ async function main() {
     /**
      * Request handler.
      */
-    const all = cfg.all(); // Get all of the configuration dependency.
+    const config = cfg.all(); // Get all of the configuration dependency.
     const mimeType = cfg.get("mimeType"); // Get mimeType dependency by key.
     const requestHandlerOptions = dyn.record<RequestHandlerOptions>({
         // Combine config dependencies with a record to build async options.
-        log,
-        config: all,
-        mimeType
+        log, config, mimeType,
     });
     const requestHandler = dyn.many(requestHandlerFactory, [requestHandlerOptions]);
 
