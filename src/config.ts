@@ -1,6 +1,6 @@
-import { Dependency } from "./depends";
-import { Dynasty } from "./dynasty";
-import { UnknownRecord } from "./helpers";
+import { Dependency } from './depends';
+import { Dynasty } from './dynasty';
+import { UnknownRecord } from './helpers';
 
 /**
  * Configuration Selector.

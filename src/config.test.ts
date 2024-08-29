@@ -1,7 +1,6 @@
-import { expect } from "chai";
-import { Config } from "./config";
-import { Dynasty } from "./dynasty";
-import exp from "constants";
+import { expect } from 'chai';
+import { Config } from './config';
+import { Dynasty } from './dynasty';
 
 describe('Config', () => {
     it('should be a class', () => {
@@ -11,8 +10,9 @@ describe('Config', () => {
     });
     it('should support an empty configuration', async () => {
         const dynasty = new Dynasty();
-        type MyConfig = {};
-        const cfg = new Config<MyConfig>(dynasty, {});
+        type MyConfig = Record<string, string>;
+        const empty: MyConfig = {};
+        const cfg = new Config<MyConfig>(dynasty, empty);
         const all = cfg.all(); // 'all' is a Dependency<MyConfig>.
         expect(cfg).to.be.an.instanceOf(Config);
         expect(all).to.be.an('function');
@@ -55,9 +55,9 @@ describe('Config', () => {
             const dynasty = new Dynasty();
             type MyConfig = { library: string };
             const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
-            expect(cfg.has('library')).to.be.true;
+            expect(cfg.has('library')).to.be.equal(true);
             // @ts-expect-error 'foo' does not exist.
-            expect(cfg.has('foo')).to.be.false;
+            expect(cfg.has('foo')).to.be.equal(false);
         });
     });
     describe('select', () => {
@@ -161,14 +161,14 @@ describe('Config', () => {
             const dynasty = new Dynasty();
             type MyConfig = { library: string };
             const cfg = new Config<MyConfig>(dynasty, { library: 'card' });
-            expect(cfg.isLocked).to.be.false;
+            expect(cfg.isLocked).to.equal(false);
             cfg.lock();
-            expect(cfg.isLocked).to.be.true;
+            expect(cfg.isLocked).to.equal(true);
             expect(() => {
                 cfg.set('library', 'board');
             }).to.throw('The Dynasty configuration is locked.');
             cfg.unlock();
-            expect(cfg.isLocked).to.be.false;
+            expect(cfg.isLocked).to.equal(false);
         });
     });
 });

@@ -9,6 +9,9 @@ export default tseslint.config(
     ...tseslint.configs.stylistic,
     {
         rules: {
+            // Prefer single quotes.
+            "quotes": [2, "single", { "avoidEscape": true }],
+
             // Allow _ prefixed variables to be unused.
             '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 

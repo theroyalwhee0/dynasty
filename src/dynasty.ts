@@ -1,7 +1,7 @@
-import once from "lodash.once";
-import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from "./depends.js";
-import { isPromise, UnknownRecord } from "./helpers.js";
-import { Config } from "./config.js";
+import once from 'lodash.once';
+import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from './depends.js';
+import { isPromise, UnknownRecord } from './helpers.js';
+import { Config } from './config.js';
 
 /**
  * A factory function that creates a value with a list of arguments.

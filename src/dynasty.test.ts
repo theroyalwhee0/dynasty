@@ -1,7 +1,7 @@
-import { expect } from "chai";
-import { Dynasty, newable } from "./dynasty";
-import { Dependency, isDependency } from "./depends";
-import { Config } from "./config";
+import { expect } from 'chai';
+import { Dynasty, newable } from './dynasty';
+import { Dependency, isDependency } from './depends';
+import { Config } from './config';
 
 /**
  * Counter factory.
@@ -259,7 +259,7 @@ describe('Dynasty', () => {
         it('should support a record with a mix of resolvable values', async () => {
             const dyn = new Dynasty();
             const d = dyn.value(5);
-            const e = Promise.resolve("7");
+            const e = Promise.resolve('7');
             const f = true;
             type MixedType = {
                 d: number;
@@ -271,7 +271,7 @@ describe('Dynasty', () => {
             const promise = record();
             expect(promise).to.be.a('promise');
             const result = await promise;
-            expect(result).to.eql({ d: 5, e: "7", f: true });
+            expect(result).to.eql({ d: 5, e: '7', f: true });
         });
     });
     describe('config', () => {
@@ -282,8 +282,9 @@ describe('Dynasty', () => {
         });
         it('should support an empty configuration', async () => {
             const dyn = new Dynasty();
-            type MyConfig = {};
-            const cfg = dyn.config<MyConfig>({});
+            type MyConfig = Record<string, string>
+            const empty: MyConfig = {};
+            const cfg = dyn.config<MyConfig>(empty);
             expect(cfg).to.be.an.instanceOf(Config);
             const all = await cfg.all(); // 'all' is a Dependency<MyConfig>.
             expect(all).to.be.an('function');
@@ -291,7 +292,7 @@ describe('Dynasty', () => {
             expect(results).to.be.an('array');
             expect(results.length).to.equal(1);
             const [data] = results;
-            expect(data).to.eql({});
+            expect(data).to.eql(empty);
         });
     });
 });
