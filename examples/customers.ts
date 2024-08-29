@@ -1,4 +1,4 @@
-import Dynasty from "../src";
+import Dynasty from '../src';
 
 /**
  * Customer Example
@@ -21,8 +21,8 @@ type Customer = {
  * Load customer data.
  */
 function loadCustomerData(count: number): Customer[] {
-    const firstNames = ["John", "Jane", "Alice", "Bob", "Charlie"];
-    const lastNames = ["Brown", "Smith", "Johnson", "Williams", "Jones"];
+    const firstNames = ['John', 'Jane', 'Alice', 'Bob', 'Charlie'];
+    const lastNames = ['Brown', 'Smith', 'Johnson', 'Williams', 'Jones'];
     const zipCodes = [10001, 19103, 21201, 20008, 30303];
     const customers: Customer[] = [];
     for (let i = 0; i < count; i++) {
@@ -71,12 +71,12 @@ type AppOptions = {
  * Application factory.
  */
 function appFactory(log: Log, options: AppOptions) {
-    log("[[[ Customers ]]]");
+    log('[[[ Customers ]]]');
     for (const customer of customers) {
         const id = customer.id;
         let firstName = customer.firstName;
         let lastName = customer.lastName;
-        let zipCode = customer.zipCode;
+        const zipCode = customer.zipCode;
         let lastPurchaseDate: string;
         // Format date.
         switch (options.dateFormat) {
@@ -84,7 +84,7 @@ function appFactory(log: Log, options: AppOptions) {
                 lastPurchaseDate = customer.lastPurchaseDate.toISOString();
                 break;
             case DateFormat.Timestamp:
-                lastPurchaseDate = (+customer.lastPurchaseDate) + "";
+                lastPurchaseDate = (+customer.lastPurchaseDate) + '';
                 break;
             case DateFormat.String:
                 lastPurchaseDate = customer.lastPurchaseDate.toString();

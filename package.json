@@ -49,7 +49,7 @@
     "develop:once": "npm run -s build",
     "develop:test": "mocha --watch --reporter dot",
     "develop:coverage": "c8 --skip-full --reporter text mocha --reporter dot",
-    "lint": "tsc --noEmit && eslint src/**/*.ts",
+    "lint": "tsc --noEmit && eslint src/**/*.ts examples/**/*.ts",
     "test": "npm run -s test:runner",
     "test:runner": "c8 --reporter text-summary mocha",
     "coverage": "c8 --reporter text mocha --reporter min",

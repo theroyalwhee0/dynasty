@@ -1,5 +1,5 @@
-import { createServer, IncomingMessage, ServerResponse, Server, RequestListener } from "node:http";
-import Dynasty from "../src";
+import { createServer, IncomingMessage, ServerResponse, Server, RequestListener } from 'node:http';
+import Dynasty from '../src';
 
 /**
  * Log function type.
@@ -16,8 +16,8 @@ function loggerFactory(method: keyof Console & ('log' | 'info' | 'warn' | 'error
 /**
  * Application factory.
  */
-function appFactory(log: Log, httpServer: Server) {
-    log("Application started.");
+function appFactory(log: Log, _httpServer: Server) {
+    log('Application started.');
 }
 
 /**
@@ -40,9 +40,9 @@ type AppConfig = {
  */
 const appConfigDefault: AppConfig = {
     port: 80,
-    mimeType: "text/plain",
-    content: "Hello World.",
-    logMethod: "info",
+    mimeType: 'text/plain',
+    content: 'Hello World.',
+    logMethod: 'info',
 };
 
 /**
@@ -62,7 +62,7 @@ function requestHandlerFactory({ log, config, mimeType }: RequestHandlerOptions)
     return (req: IncomingMessage, res: ServerResponse) => {
         const date = new Date().toISOString();
         const status = 200;
-        res.writeHead(status, { "content-type": mimeType });
+        res.writeHead(status, { 'content-type': mimeType });
         res.end(content);
         log(`[${date}] ${status} ${req.method} ${req.url}`);
     }
@@ -86,7 +86,7 @@ function httpServerFactory(log: Log, port: number, requestHandler: RequestListen
  * Main function.
  */
 async function main() {
-    console.info("[[[ Web Server ]]]");
+    console.info('[[[ Web Server ]]]');
 
     /**
      * Dynasty instance.
@@ -101,12 +101,12 @@ async function main() {
         port: 8080,
         logMethod: 'info',
     });
-    cfg.set("content", "Hello TypeScript!"); // Set content by key.
+    cfg.set('content', 'Hello TypeScript!'); // Set content by key.
 
     cfg.lock();  // Lock the configuration. Any updates after this will throw.
 
-    if (cfg.has("exitAfter")) { // Use has() to check if key exists on the configuration.
-        throw new Error(`Feature 'exitAfter' is not implemented.`);
+    if (cfg.has('exitAfter')) { // Use has() to check if key exists on the configuration.
+        throw new Error('Feature \'exitAfter\' is not implemented.');
     }
 
     /**
@@ -120,7 +120,7 @@ async function main() {
      * Request handler.
      */
     const config = cfg.all(); // Get all of the configuration dependency.
-    const mimeType = cfg.get("mimeType"); // Get mimeType dependency by key.
+    const mimeType = cfg.get('mimeType'); // Get mimeType dependency by key.
     const requestHandlerOptions = dyn.record<RequestHandlerOptions>({
         // Combine config dependencies with a record to build async options.
         log, config, mimeType,
