@@ -45,15 +45,16 @@ See the [examples](./examples/Examples.md) for more usage demonstrations.
 
 
 ## Differences from Dynasty v1
-Dynasty v2 is a complete rewrite of Dynasty v1. The library's approach to dependency injection is completly different. Dynasty v2 does not have a dependency graph. Instead, it helps the developer to manage their dependencies explicitly. Instead of using string-keyed dependencies, Dynasty v2 manages dependencies as normal typed TypeScript variables. Dynasty v2 is built as an ESModule library.
+Dynasty v2 is a complete rewrite of Dynasty v1. The library's approach to dependency injection is completly different. Dynasty v2 does not have a dependency graph. Instead, it helps the developer to manage their dependencies explicitly. Instead of using string-keyed dependencies, Dynasty v2 manages dependencies as normal TypeScript variables. Dynasty v2 is built as an ESModule library.
 
 
 ## Links
-- GitHub: https://github.com/theroyalwhee0/dynasty
-- NPM: https://www.npmjs.com/package/@theroyalwhee0/dynasty
+- [@GitHub](https://github.com/theroyalwhee0/dynasty)
+- [@NPM](https://www.npmjs.com/package/@theroyalwhee0/dynasty)
+- [CHANGELOG](./CHANGELOG.md)
 
 
 ## Legal & License
 Copyright 2019-2024 Adam Mill
 
-This library is released under Apache 2 license. See [LICENSE](https://github.com/theroyalwhee0/dynasty/blob/master/LICENSE) for more details.
+This library is released under Apache 2 license. See [LICENSE](./LICENSE) for more details.

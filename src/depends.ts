@@ -1,9 +1,9 @@
-import type { PromiseTuple, UnknownRecord } from "./helpers";
+import type { PromiseTuple, UnknownRecord } from './helpers';
 
 /**
  * Dependency marker symbol.
  */
-export const DEPENDENCY: unique symbol = Symbol("DEPENDENCY");
+export const DEPENDENCY: unique symbol = Symbol('DEPENDENCY');
 
 /**
  * A Dependency that does not have the marker.
@@ -45,7 +45,7 @@ export function markDependency<const T>(dependency: UnmarkedDependency<T>): Depe
  * @returns True if the value is a marked dependency.
  */
 export function isDependency<const T>(value: UnmarkedDependency<T> | T): value is Dependency<T> {
-    return typeof value === "function" && DEPENDENCY in value && value[DEPENDENCY] === true;
+    return typeof value === 'function' && DEPENDENCY in value && value[DEPENDENCY] === true;
 }
 
 /**

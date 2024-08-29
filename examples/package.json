@@ -1,0 +1,21 @@
+{
+  "name": "@theroyalwhee0/dynasty-examples",
+  "version": "1.0.0",
+  "description": "Dynasty Examples - Private package for examples",
+  "main": "index.js",
+  "private": true,
+  "author": "Adam Mill <hismajesty@theroyalwhee.com> (https://www.theroyalwhee.com/)",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "22.5.1"
+  },
+  "scripts": {
+    "all": "npm run -s animal_query && npm run -s char_sheet && npm run -s compact && npm run -s customers && npm run -s juicer && npm run -s webserver",
+    "animal_query": "tsx ./animal_query.ts",
+    "char_sheet": "tsx ./char_sheet.ts",
+    "compact": "tsx ./compact.ts",
+    "customers": "tsx ./customers.ts",
+    "juicer": "tsx ./juicer.ts",
+    "webserver": "tsx ./webserver.ts"
+  }
+}

@@ -1,6 +1,7 @@
-import once from "lodash.once";
-import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from "./depends.js";
-import { isPromise, UnknownRecord } from "./helpers.js";
+import once from 'lodash.once';
+import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from './depends.js';
+import { isPromise, UnknownRecord } from './helpers.js';
+import { Config } from './config.js';
 
 /**
  * A factory function that creates a value with a list of arguments.
@@ -38,7 +39,7 @@ export class Dynasty {
     /**
      * A singleton. Create a dependency that is resolved once.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     once<TArgs extends readonly unknown[], const T>
@@ -51,7 +52,7 @@ export class Dynasty {
     /**
      * Create a dependency that is resolved every time it is used.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     many<TArgs extends readonly unknown[], const T>
@@ -89,9 +90,18 @@ export class Dynasty {
                         : isDependency(value) ? await value()
                             : value;
             }
-            // UNSAFE: Force type on generic Record.
+            // UNSAFE: Force type on UnknownRecord.
             return result as DependencyRecord<T>;
         });
+    }
+
+    /**
+     * Configuration.
+     * @param initial The initial configuration value.
+     * @returns The configuration.
+     */
+    config<const C extends UnknownRecord>(initial: Readonly<C>): Config<C> {
+        return new Config<C>(this, initial);
     }
 
     /**
