@@ -1,7 +1,7 @@
-import once from "lodash.once";
-import { isDependency, markDependency, resolveDependencies } from "./depends.js";
-import { isPromise } from "./helpers.js";
-import { Config } from "./config.js";
+import once from 'lodash.once';
+import { isDependency, markDependency, resolveDependencies } from './depends.js';
+import { isPromise } from './helpers.js';
+import { Config } from './config.js';
 /**
  * Dynasty is a simple Dependency Injection container.
  */
@@ -24,7 +24,7 @@ export class Dynasty {
     /**
      * A singleton. Create a dependency that is resolved once.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     once(factory, dependencies) {
@@ -35,7 +35,7 @@ export class Dynasty {
     /**
      * Create a dependency that is resolved every time it is used.
      * @param factory The factory function.
-     * @param depends The dependencies to pass to the factory function.
+     * @param dependencies The dependencies to pass to the factory function.
      * @returns The dependency. Resolved on use.
      */
     many(factory, dependencies) {

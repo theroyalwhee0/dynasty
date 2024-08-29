@@ -9,25 +9,40 @@ export class Config {
     /**
      * The parent Dynasty instance.
      */
-    dyn;
+    dynasty;
     /**
-     * Read-only flag.
+     * Locked flag.
      */
-    isReadOnly = false;
+    lockFlag = false;
     /**
      * Constructor.
      * @param initial The initial configuration value. A shallow copy is made.
      */
-    constructor(dyn, initial) {
+    constructor(dynasty, initial) {
         this.data = { ...initial };
-        this.dyn = dyn;
+        this.dynasty = dynasty;
     }
     /**
-     * Mark the configuration as read-only.
+     * Is the configuration locked?
+     */
+    get isLocked() {
+        return this.lockFlag;
+    }
+    /**
+     * Lock the configuration.
+     * Attempts to update the configuration after this will throw.
      * @returns Fluent interface.
      */
-    readOnly(value = true) {
-        this.isReadOnly = value;
+    lock() {
+        this.lockFlag = true;
+        return this;
+    }
+    /**
+     * Unlock the configuration.
+     * @returns Fluent interface.
+     */
+    unlock() {
+        this.lockFlag = false;
         return this;
     }
     /**
@@ -36,8 +51,8 @@ export class Config {
      * @returns Fluent interface.
      */
     update(partialConfig) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         Object.assign(this.data, partialConfig);
         return this;
@@ -48,8 +63,8 @@ export class Config {
      * @returns Fluent interface.
      */
     replace(config) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         this.data = { ...config };
         return this;
@@ -60,7 +75,7 @@ export class Config {
      * @returns The dependency for the configuration value.
      */
     select(selector) {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return selector(this.data);
         }, []);
     }
@@ -70,7 +85,7 @@ export class Config {
      * @returns
      */
     get(key) {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return this.data[key];
         }, []);
     }
@@ -81,8 +96,8 @@ export class Config {
      * @returns Boolean indicating if the value was set.
      */
     set(key, value) {
-        if (this.isReadOnly) {
-            throw new Error("Unable to modify Dynasty configuration. It has been marked read-only");
+        if (this.lockFlag) {
+            throw new Error('The Dynasty configuration is locked.');
         }
         this.data[key] = value;
         return this;
@@ -100,9 +115,9 @@ export class Config {
      * @returns The dependency for the entire configuration. A shallow copy is made.
      */
     all() {
-        return this.dyn.many(() => {
+        return this.dynasty.many(() => {
             return { ...this.data };
         }, []);
     }
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uZmlnLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL2NvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFVQTs7R0FFRztBQUNILE1BQU0sT0FBTyxNQUFNO0lBQ2Y7O09BRUc7SUFDSyxJQUFJLENBQUk7SUFFaEI7O09BRUc7SUFDSyxHQUFHLENBQVU7SUFFckI7O09BRUc7SUFDSyxVQUFVLEdBQUcsS0FBSyxDQUFDO0lBRTNCOzs7T0FHRztJQUNILFlBQVksR0FBc0IsRUFBRSxPQUFvQjtRQUNwRCxJQUFJLENBQUMsSUFBSSxHQUFHLEVBQUUsR0FBRyxPQUFPLEVBQUUsQ0FBQztRQUMzQixJQUFJLENBQUMsR0FBRyxHQUFHLEdBQUcsQ0FBQztJQUNuQixDQUFDO0lBRUQ7OztPQUdHO0lBQ0gsUUFBUSxDQUFDLEtBQUssR0FBRyxJQUFJO1FBQ2pCLElBQUksQ0FBQyxVQUFVLEdBQUcsS0FBSyxDQUFDO1FBQ3hCLE9BQU8sSUFBSSxDQUFDO0lBQ2hCLENBQUM7SUFFRDs7OztPQUlHO0lBQ0gsTUFBTSxDQUFDLGFBQW1DO1FBQ3RDLElBQUksSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1lBQ2xCLE1BQU0sSUFBSSxLQUFLLENBQUMsc0VBQXNFLENBQUMsQ0FBQztRQUM1RixDQUFDO1FBQ0QsTUFBTSxDQUFDLE1BQU0sQ0FBZ0IsSUFBSSxDQUFDLElBQUksRUFBRSxhQUFhLENBQUMsQ0FBQztRQUN2RCxPQUFPLElBQUksQ0FBQztJQUNoQixDQUFDO0lBRUQ7Ozs7T0FJRztJQUNILE9BQU8sQ0FBQyxNQUFtQjtRQUN2QixJQUFJLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQztZQUNsQixNQUFNLElBQUksS0FBSyxDQUFDLHNFQUFzRSxDQUFDLENBQUM7UUFDNUYsQ0FBQztRQUNELElBQUksQ0FBQyxJQUFJLEdBQUcsRUFBRSxHQUFHLE1BQU0sRUFBRSxDQUFDO1FBQzFCLE9BQU8sSUFBSSxDQUFDO0lBQ2hCLENBQUM7SUFFRDs7OztPQUlHO0lBQ0gsTUFBTSxDQUFJLFFBQW9DO1FBQzFDLE9BQU8sSUFBSSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsR0FBRyxFQUFFO1lBQ3RCLE9BQU8sUUFBUSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztRQUMvQixDQUFDLEVBQUUsRUFBRSxDQUFDLENBQUM7SUFDWCxDQUFDO0lBRUQ7Ozs7T0FJRztJQUNILEdBQUcsQ0FBMEIsR0FBTTtRQUMvQixPQUFPLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEdBQUcsRUFBRTtZQUN0QixPQUFPLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUM7UUFDMUIsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO0lBQ1gsQ0FBQztJQUVEOzs7OztPQUtHO0lBQ0gsR0FBRyxDQUEwQixHQUFNLEVBQUUsS0FBVztRQUM1QyxJQUFJLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQztZQUNsQixNQUFNLElBQUksS0FBSyxDQUFDLHNFQUFzRSxDQUFDLENBQUM7UUFDNUYsQ0FBQztRQUNELElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLEdBQUcsS0FBSyxDQUFDO1FBQ3ZCLE9BQU8sSUFBSSxDQUFDO0lBQ2hCLENBQUM7SUFFRDs7OztPQUlHO0lBQ0gsR0FBRyxDQUEwQixHQUFNO1FBQy9CLE9BQU8sR0FBRyxJQUFJLElBQUksQ0FBQyxJQUFJLENBQUM7SUFDNUIsQ0FBQztJQUVEOzs7T0FHRztJQUNILEdBQUc7UUFDQyxPQUFPLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEdBQUcsRUFBRTtZQUN0QixPQUFPLEVBQUUsR0FBRyxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUM7UUFDNUIsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO0lBQ1gsQ0FBQztDQUNKIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uZmlnLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL2NvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFVQTs7R0FFRztBQUNILE1BQU0sT0FBTyxNQUFNO0lBQ2Y7O09BRUc7SUFDSyxJQUFJLENBQUk7SUFFaEI7O09BRUc7SUFDSyxPQUFPLENBQVU7SUFFekI7O09BRUc7SUFDSyxRQUFRLEdBQUcsS0FBSyxDQUFDO0lBRXpCOzs7T0FHRztJQUNILFlBQVksT0FBMEIsRUFBRSxPQUFvQjtRQUN4RCxJQUFJLENBQUMsSUFBSSxHQUFHLEVBQUUsR0FBRyxPQUFPLEVBQUUsQ0FBQztRQUMzQixJQUFJLENBQUMsT0FBTyxHQUFHLE9BQU8sQ0FBQztJQUMzQixDQUFDO0lBRUQ7O09BRUc7SUFDSCxJQUFJLFFBQVE7UUFDUixPQUFPLElBQUksQ0FBQyxRQUFRLENBQUM7SUFDekIsQ0FBQztJQUVEOzs7O09BSUc7SUFDSCxJQUFJO1FBQ0EsSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLENBQUM7UUFDckIsT0FBTyxJQUFJLENBQUM7SUFDaEIsQ0FBQztJQUVEOzs7T0FHRztJQUNILE1BQU07UUFDRixJQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQztRQUN0QixPQUFPLElBQUksQ0FBQztJQUNoQixDQUFDO0lBRUQ7Ozs7T0FJRztJQUNILE1BQU0sQ0FBQyxhQUFtQztRQUN0QyxJQUFJLElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztZQUNoQixNQUFNLElBQUksS0FBSyxDQUFDLHNDQUFzQyxDQUFDLENBQUM7UUFDNUQsQ0FBQztRQUNELE1BQU0sQ0FBQyxNQUFNLENBQWdCLElBQUksQ0FBQyxJQUFJLEVBQUUsYUFBYSxDQUFDLENBQUM7UUFDdkQsT0FBTyxJQUFJLENBQUM7SUFDaEIsQ0FBQztJQUVEOzs7O09BSUc7SUFDSCxPQUFPLENBQUMsTUFBbUI7UUFDdkIsSUFBSSxJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7WUFDaEIsTUFBTSxJQUFJLEtBQUssQ0FBQyxzQ0FBc0MsQ0FBQyxDQUFDO1FBQzVELENBQUM7UUFDRCxJQUFJLENBQUMsSUFBSSxHQUFHLEVBQUUsR0FBRyxNQUFNLEVBQUUsQ0FBQztRQUMxQixPQUFPLElBQUksQ0FBQztJQUNoQixDQUFDO0lBRUQ7Ozs7T0FJRztJQUNILE1BQU0sQ0FBSSxRQUFvQztRQUMxQyxPQUFPLElBQUksQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLEdBQUcsRUFBRTtZQUMxQixPQUFPLFFBQVEsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7UUFDL0IsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO0lBQ1gsQ0FBQztJQUVEOzs7O09BSUc7SUFDSCxHQUFHLENBQTBCLEdBQU07UUFDL0IsT0FBTyxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxHQUFHLEVBQUU7WUFDMUIsT0FBTyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDO1FBQzFCLENBQUMsRUFBRSxFQUFFLENBQUMsQ0FBQztJQUNYLENBQUM7SUFFRDs7Ozs7T0FLRztJQUNILEdBQUcsQ0FBMEIsR0FBTSxFQUFFLEtBQVc7UUFDNUMsSUFBSSxJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7WUFDaEIsTUFBTSxJQUFJLEtBQUssQ0FBQyxzQ0FBc0MsQ0FBQyxDQUFDO1FBQzVELENBQUM7UUFDRCxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxHQUFHLEtBQUssQ0FBQztRQUN2QixPQUFPLElBQUksQ0FBQztJQUNoQixDQUFDO0lBRUQ7Ozs7T0FJRztJQUNILEdBQUcsQ0FBMEIsR0FBTTtRQUMvQixPQUFPLEdBQUcsSUFBSSxJQUFJLENBQUMsSUFBSSxDQUFDO0lBQzVCLENBQUM7SUFFRDs7O09BR0c7SUFDSCxHQUFHO1FBQ0MsT0FBTyxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxHQUFHLEVBQUU7WUFDMUIsT0FBTyxFQUFFLEdBQUcsSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDO1FBQzVCLENBQUMsRUFBRSxFQUFFLENBQUMsQ0FBQztJQUNYLENBQUM7Q0FDSiJ9

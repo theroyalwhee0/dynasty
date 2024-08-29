@@ -1,12 +1,12 @@
-import { expect } from "chai";
-import { DEPENDENCY, isDependency, markDependency, resolveDependencies } from "./depends";
+import { expect } from 'chai';
+import { DEPENDENCY, isDependency, markDependency, resolveDependencies } from './depends';
 describe('markDependency', () => {
     it('should be a function', () => {
         expect(markDependency).to.be.a('function');
         expect(markDependency.length).to.equal(1);
     });
     it('should mark a dependency', async () => {
-        const unmarked = async () => "rubber duck";
+        const unmarked = async () => 'rubber duck';
         const dependency = markDependency(unmarked);
         expect(dependency).to.be.a('function');
         expect(dependency.length).to.equal(0);
@@ -14,7 +14,7 @@ describe('markDependency', () => {
         const promise = dependency();
         expect(promise).to.be.a('promise');
         const result = await promise;
-        expect(result).to.equal("rubber duck");
+        expect(result).to.equal('rubber duck');
     });
 });
 describe('resolveDependencies', () => {

@@ -1,7 +1,7 @@
 /**
  * Dependency marker symbol.
  */
-export const DEPENDENCY = Symbol("DEPENDENCY");
+export const DEPENDENCY = Symbol('DEPENDENCY');
 /**
  * Mark an unmaked dependency as a dependency.
  * @param dependency The unmarked dependency.
@@ -16,7 +16,7 @@ export function markDependency(dependency) {
  * @returns True if the value is a marked dependency.
  */
 export function isDependency(value) {
-    return typeof value === "function" && DEPENDENCY in value && value[DEPENDENCY] === true;
+    return typeof value === 'function' && DEPENDENCY in value && value[DEPENDENCY] === true;
 }
 /**
  * Resolve async dependencies to actual values.
