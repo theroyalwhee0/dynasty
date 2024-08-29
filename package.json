@@ -54,7 +54,7 @@
     "test:runner": "c8 --reporter text-summary mocha",
     "coverage": "c8 --reporter text mocha --reporter min",
     "docs": "typedoc --entryPoints ./src/index.ts --out docs",
-    "dryrun": "npm run -s clean && npm run -s build && npm run -s lint && npm run -s test",
+    "dryrun": "npm run -s clean && npm run -s build && npm run -s lint && npm run -s test && npm publish --dry-run",
     "clean": "rm -rf dist .build ; mkdir -p dist"
   }
 }
