@@ -45,6 +45,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:full": "npm run -s clean && npm run -s build",
     "develop": "npm run -s develop:once && npm run -s develop:test",
     "develop:once": "npm run -s build",
     "develop:test": "mocha --watch --reporter dot",
@@ -53,8 +54,9 @@
     "test": "npm run -s test:runner",
     "test:runner": "c8 --reporter text-summary mocha",
     "coverage": "c8 --reporter text mocha --reporter min",
+    "publish:coverage": "c8 --100 --skip-full --reporter text mocha --reporter dot",
     "docs": "typedoc --entryPoints ./src/index.ts --out docs",
-    "dryrun": "npm run -s clean && npm run -s build && npm run -s lint && npm run -s test",
+    "dryrun": "npm run -s build:full && npm run -s lint && npm run -s publish:coverage && npm publish --dry-run",
     "clean": "rm -rf dist .build ; mkdir -p dist"
   }
 }
