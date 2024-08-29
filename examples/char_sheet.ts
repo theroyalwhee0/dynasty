@@ -1,4 +1,4 @@
-import Dynasty from "../src";
+import Dynasty from '../src';
 
 /**
  * Character Sheet Example

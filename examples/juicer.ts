@@ -1,4 +1,4 @@
-import Dynasty, { newable } from "../src";
+import Dynasty, { newable } from '../src';
 
 /**
  * Juicer Example

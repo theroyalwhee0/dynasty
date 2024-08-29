@@ -47,13 +47,13 @@ function dataFactory(): Promise<Record<string, string>> {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                "APE": "primates",
-                "BEE": "hymenoptera",
-                "CAT": "carnivora",
-                "DOG": "carnivora",
-                "EEL": "anguilliformes",
-                "FIR": "pinales",
-                "GAR": "lepisosteiformes",
+                'APE': 'primates',
+                'BEE': 'hymenoptera',
+                'CAT': 'carnivora',
+                'DOG': 'carnivora',
+                'EEL': 'anguilliformes',
+                'FIR': 'pinales',
+                'GAR': 'lepisosteiformes',
             });
         }, 200); // 200ms delay
     });
@@ -78,7 +78,7 @@ function queryFactory(data: Record<string, string>) {
             if (key in data) {
                 return data[key];
             } else {
-                return "unknown"; // Not found
+                return 'unknown'; // Not found
             }
         }
     }
