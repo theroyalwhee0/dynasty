@@ -50,11 +50,11 @@
     "develop:once": "npm run -s build",
     "develop:test": "mocha --watch --reporter dot",
     "develop:coverage": "c8 --skip-full --reporter text mocha --reporter dot",
-    "lint": "tsc --noEmit && eslint src/**/*.ts examples/**/*.ts",
+    "lint": "tsc --noEmit && eslint src/**/*.ts examples/**/*.ts *.config.mjs",
     "test": "npm run -s test:runner",
     "test:runner": "c8 --reporter text-summary mocha",
     "coverage": "c8 --reporter text mocha --reporter min",
-    "publish:coverage": "c8 --100 --skip-full --reporter text mocha --reporter dot",
+    "publish:coverage": "c8 --100 --reporter text mocha --reporter dot",
     "docs": "typedoc --entryPoints ./src/index.ts --out docs",
     "dryrun": "npm run -s build:full && npm run -s lint && npm run -s publish:coverage && npm publish --dry-run",
     "clean": "rm -rf dist .build ; mkdir -p dist"
