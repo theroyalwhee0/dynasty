@@ -9,9 +9,27 @@ export type Selector<T extends UnknownRecord, R> = (cfg: Readonly<T>) => R
 
 
 /**
- * Dynasty Configuration.
+ * Config interface.
+ * @public
  */
-export class Config<T extends UnknownRecord> {
+export interface Config<T extends UnknownRecord> {
+    get isLocked(): boolean;
+    lock(): this;
+    unlock(): this;
+    update(partialConfig: Readonly<Partial<T>>): this;
+    replace(config: Readonly<T>): this;
+    select<R>(selector: (config: Readonly<T>) => R): Dependency<R>;
+    get<const K extends keyof T>(key: K): Dependency<T[K]>;
+    set<const K extends keyof T>(key: K, value: T[K]): this;
+    has<const K extends keyof T>(key: K): boolean;
+    all(): Dependency<T>;
+}
+
+/**
+ * Dynasty Configuration.
+ * @private
+ */
+export class Configuration<T extends UnknownRecord> implements Config<T> {
     /**
      * The configuration data.
      */
@@ -57,7 +75,7 @@ export class Config<T extends UnknownRecord> {
      * Unlock the configuration.
      * @returns Fluent interface.
      */
-    unlock(): Config<T> {
+    unlock() {
         this.lockFlag = false;
         return this;
     }

@@ -1,7 +1,7 @@
 import once from 'lodash.once';
 import { Dependencies, Dependency, DependencyRecord, isDependency, markDependency, ResolvableRecord, resolveDependencies } from './depends.js';
 import { isPromise, UnknownRecord } from './helpers.js';
-import { Config } from './config.js';
+import { Config, Configuration } from './config.js';
 
 /**
  * A factory function that creates a value with a list of arguments.
@@ -15,6 +15,7 @@ export type FactoryClass<TArgs extends readonly unknown[], T> = new (...args: TA
 
 /**
  * Dynasty is a simple Dependency Injection container.
+ * This is the primary class for creating and managing dependencies.
  */
 export class Dynasty {
     /**
@@ -101,7 +102,7 @@ export class Dynasty {
      * @returns The configuration.
      */
     config<const C extends UnknownRecord>(initial: Readonly<C>): Config<C> {
-        return new Config<C>(this, initial);
+        return new Configuration<C>(this, initial);
     }
 
     /**
