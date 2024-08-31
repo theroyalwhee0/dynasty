@@ -34,7 +34,6 @@
     "concurrently": "8.2.2",
     "eslint": "9.8.0",
     "mocha": "10.7.3",
-    "nodemon": "3.1.4",
     "tsx": "4.16.5",
     "typedoc": "0.26.6",
     "typescript": "5.5.4",
@@ -46,18 +45,17 @@
   "scripts": {
     "build": "tsc",
     "build:full": "npm run -s clean && npm run -s build",
-    "develop": "npm run -s develop:once && npm run -s develop:test",
-    "develop:once": "npm run -s build",
-    "develop:test": "mocha --watch --reporter dot",
-    "develop:coverage": "c8 --skip-full --reporter text mocha --reporter dot",
+    "X": "npm run -s clean && npm run -s build && ",
+    "develop": "concurrently -c blue,yellow --kill-others npm:develop:*",
+    "develop:build": "tsc --watch --preserveWatchOutput",
+    "develop:tests": "mocha --watch --reporter dot",
     "lint": "tsc --noEmit && eslint src/**/*.ts examples/**/*.ts *.config.mjs",
-    "test": "npm run -s test:runner",
-    "test:runner": "c8 --reporter text-summary mocha",
+    "test": "c8 --reporter text-summary mocha",
     "coverage": "c8 --reporter text mocha --reporter min",
     "publish:coverage": "c8 --100 --reporter text mocha --reporter dot",
     "docs": "typedoc --entryPoints ./src/index.ts --out docs",
     "docs:browse": "open docs/index.html",
-    "dryrun": "npm run -s build:full && npm run -s lint && npm run -s publish:coverage && npm publish --dry-run",
-    "clean": "rm -rf dist .build ; mkdir -p dist"
+    "clean": "rm -rf dist .build ; mkdir -p dist",
+    "dryrun": "npm prune && npm run -s build:full && npm run -s lint && npm run -s publish:coverage && npm publish --dry-run"
   }
 }
