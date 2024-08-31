@@ -45,7 +45,6 @@
   "scripts": {
     "build": "tsc",
     "build:full": "npm run -s clean && npm run -s build",
-    "X": "npm run -s clean && npm run -s build && ",
     "develop": "concurrently -c blue,yellow --kill-others npm:develop:*",
     "develop:build": "tsc --watch --preserveWatchOutput",
     "develop:tests": "mocha --watch --reporter dot",
