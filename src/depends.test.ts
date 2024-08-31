@@ -1,6 +1,8 @@
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { DEPENDENCY, isDependency, markDependency, resolveDependencies } from './depends';
-import type { Dependencies, UnmarkedDependency } from './depends';
+import {
+    isDependency, markDependency, resolveDependencies, Dependencies, UnmarkedDependency, DEPENDENCY
+} from './depends';
 
 describe('markDependency', () => {
     it('should be a function', () => {

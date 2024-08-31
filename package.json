@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Dynasty: asynchronous dependency injection",
   "author": "Adam Mill <hismajesty@theroyalwhee.com> (https://www.theroyalwhee.com/)",
   "license": "Apache-2.0",
