@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Dynasty: asynchronous dependency injection",
   "author": "Adam Mill <hismajesty@theroyalwhee.com> (https://www.theroyalwhee.com/)",
   "license": "Apache-2.0",
@@ -56,6 +56,7 @@
     "coverage": "c8 --reporter text mocha --reporter min",
     "publish:coverage": "c8 --100 --reporter text mocha --reporter dot",
     "docs": "typedoc --entryPoints ./src/index.ts --out docs",
+    "docs:browse": "open docs/index.html",
     "dryrun": "npm run -s build:full && npm run -s lint && npm run -s publish:coverage && npm publish --dry-run",
     "clean": "rm -rf dist .build ; mkdir -p dist"
   }

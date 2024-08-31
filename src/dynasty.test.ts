@@ -1,7 +1,8 @@
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { Dynasty, newable } from './dynasty';
 import { Dependency, isDependency } from './depends';
-import { Config } from './config';
+import { Configuration } from './config';
 
 /**
  * Counter factory.
@@ -285,7 +286,7 @@ describe('Dynasty', () => {
             type MyConfig = Record<string, string>
             const empty: MyConfig = {};
             const cfg = dyn.config<MyConfig>(empty);
-            expect(cfg).to.be.an.instanceOf(Config);
+            expect(cfg).to.be.an.instanceOf(Configuration);
             const all = await cfg.all(); // 'all' is a Dependency<MyConfig>.
             expect(all).to.be.an('function');
             const results = await dyn.start(all)
