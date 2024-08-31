@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] (v2.0.0-alpha.2)
+### Fixed
+- Fix missing declarations.
+### Changed
+- Move source map generation to separate files.
 
 
 ## [v2.0.0-alpha.1]
