@@ -67,6 +67,40 @@ describe('dynasty', () => {
         expect(name).to.equal('name');
         expect(item).to.eql([ 4, 6, 8, 10, 12, 14 ]);
       });
+      it('should resolve the first match for a single item', () => {
+        const context = mockCoreContext();
+        Object.assign(context.config, { b: { c: [{ d: 4 }, { d: 6 }] } });
+        const [ name, item ] = getConfigItem('$name=b.c..d', context);
+        expect(name).to.equal('name');
+        expect(item).to.equal(4);
+      });
+      it('should resolve arrays and objects as single items', () => {
+        const context = mockCoreContext();
+        Object.assign(context.config, { list: [ 'x', 'y' ], obj: { k: 'v' } });
+        expect(getConfigItem('$list=list', context)[1]).to.eql([ 'x', 'y' ]);
+        expect(getConfigItem('$obj=obj', context)[1]).to.eql({ k: 'v' });
+        expect(getConfigItem('$first=list[0]', context)[1]).to.equal('x');
+      });
+      it('should resolve falsy values', () => {
+        const context = mockCoreContext();
+        Object.assign(context.config, { zero: 0, empty: '', no: false, nil: null });
+        expect(getConfigItem('$v=zero', context)[1]).to.equal(0);
+        expect(getConfigItem('$v=empty', context)[1]).to.equal('');
+        expect(getConfigItem('$v=no', context)[1]).to.equal(false);
+        expect(getConfigItem('$v=nil', context)[1]).to.equal(null);
+      });
+      it('should resolve missing paths as undefined or empty', () => {
+        const context = mockCoreContext();
+        Object.assign(context.config, { a: { b: 1 } });
+        expect(getConfigItem('$v=missing', context)[1]).to.equal(undefined);
+        expect(getConfigItem('$v=a.missing.deeper', context)[1]).to.equal(undefined);
+        expect(getConfigItem('$$v=a.missing', context)[1]).to.eql([]);
+      });
+      it('should accept paths with a leading $', () => {
+        const context = mockCoreContext();
+        Object.assign(context.config, { a: { b: 2 } });
+        expect(getConfigItem('$v=$.a.b', context)[1]).to.equal(2);
+      });
     });
     describe('getItem', () => {
       it('should be a function', () => {

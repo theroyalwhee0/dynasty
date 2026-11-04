@@ -26,6 +26,8 @@ See the [examples/](https://github.com/theroyalwhee0/dynasty/tree/master/example
 
 
 ## History
+- v1.0.6 - 2026-11-04
+    - Replace unmaintained jsonpath with jsonpath-plus for config queries (security).
 - v1.0.5 - 2022-11-13
     - Bump depends for security.
     - Cleanup build to match other projects.

@@ -1,6 +1,6 @@
 {
   "name": "@theroyalwhee0/dynasty",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Dynasty: asynchronous dependency injection",
   "main": "src/index.js",
   "author": "Adam Mill <hismajesty@theroyalwhee.com>",
@@ -33,7 +33,7 @@
     "@theroyalwhee0/istype": "3.0.2",
     "@theroyalwhee0/please": "2.0.5",
     "dependency-graph": "0.10.0",
-    "jsonpath": "1.1.1",
+    "jsonpath-plus": "10.4.0",
     "lodash.mergewith": "4.6.2"
   },
   "scripts": {
