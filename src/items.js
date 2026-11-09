@@ -9,7 +9,7 @@
  * Imports.
  *
  */
-const jsonpath = require('jsonpath');
+const { JSONPath } = require('jsonpath-plus');
 const { allProps } = require('@theroyalwhee0/please');
 const { isObject } = require('@theroyalwhee0/istype');
 
@@ -58,7 +58,7 @@ async function getItem(name, depGraph, context) {
 
 /**
  * Get configuration item.
- * REF: https://github.com/dchester/jsonpath#readme
+ * REF: https://github.com/JSONPath-Plus/JSONPath#readme
  * '$[key]' = Entire configuration object.
  * '$[key]=[jsonpath-query]' = Run a jsonpath query that results in a single item.
  * '$$[key]=[jsonpath-query]' = Run a jsonpath query that results in multiple items.
@@ -71,11 +71,8 @@ function getConfigItem(name, context) {
     const key = match[2];
     const query = match[3];
     if(query) {
-      if(isMultiple) {
-        return [ key, jsonpath.query(config, query) ];
-      } else {
-        return [ key, jsonpath.value(config, query) ];
-      }
+      const results = JSONPath({ path: query, json: config });
+      return [ key, isMultiple ? results : results[0] ];
     } else {
       return [ key, config ];
     }
